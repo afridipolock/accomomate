@@ -328,8 +328,28 @@ const AllProperties = () => {
                 </div>
               </div>
             </div>
-            <div className="bottom">
-              <div className="property-card"></div>
+            <div className="properties-bottom">
+              <div className="property-card">
+                <div className="property-card-left">
+                  <div className="card-left-img"></div>
+                  <div className="card-left-price"></div>
+                </div>
+                <div className="property-card-right">
+                  <div className="card-right-title"></div>
+                  <div className="card-right-info">
+                    <div className="card-right-type"></div>
+                    <div className="card-right-beds"></div>
+                    <div className="card-right-baths"></div>
+                  </div>
+                  <div className="card-right-sub-title"></div>
+                  <div className="card-right-address"></div>
+                  <div className="card-right-contact">
+                    <div className="card-right-contact-number"></div>
+                    <div className="card-right-contact-mail"></div>
+                    <div className="card-right-contact-save"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
