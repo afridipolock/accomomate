@@ -136,6 +136,16 @@
                         background-color: white;
                         cursor: pointer;
                     }
+
+                    select option:disabled {
+                        color: #ccc;
+                        background-color: #f8f8f8;
+                    }
+
+                    select option:disabled:hover {
+                        background-color: #f0f0f0;
+                        cursor: not-allowed;
+                    }
                 }
 
                 .filter-value-checkbox {

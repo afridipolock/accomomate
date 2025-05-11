@@ -42,14 +42,13 @@ const AllProperties = () => {
     setFilters(initialFilters);
   };
 
-  const generateOptions = (count, step = 1, prefix = "", suffix = "") =>
+  const generateOptions = (count, step = 1, prefix = "") =>
     Array.from({ length: count }, (_, i) => {
       const value = (i + 1) * step;
       return (
         <option key={value} value={value}>
           {prefix}
           {value.toLocaleString()}
-          {suffix}
         </option>
       );
     });
@@ -132,7 +131,13 @@ const AllProperties = () => {
                   onChange={handleSelectChange("minPrice")}
                 >
                   <option value="">No minimum</option>
-                  {generateOptions(10, 5000, "৳ ")}
+                  {generateOptions(10, 5000, "৳ ").map((opt) =>
+                    React.cloneElement(opt, {
+                      disabled:
+                        filters.maxPrice &&
+                        parseInt(opt.props.value) > parseInt(filters.maxPrice),
+                    })
+                  )}
                 </select>
               </div>
             </div>
@@ -145,7 +150,13 @@ const AllProperties = () => {
                   onChange={handleSelectChange("maxPrice")}
                 >
                   <option value="">No maximum</option>
-                  {generateOptions(10, 5000, "৳ ")}
+                  {generateOptions(10, 5000, "৳ ").map((opt) =>
+                    React.cloneElement(opt, {
+                      disabled:
+                        filters.minPrice &&
+                        parseInt(opt.props.value) < parseInt(filters.minPrice),
+                    })
+                  )}
                 </select>
               </div>
             </div>
@@ -159,7 +170,13 @@ const AllProperties = () => {
                   onChange={handleSelectChange("minBeds")}
                 >
                   <option value="">No minimum</option>
-                  {generateOptions(10)}
+                  {generateOptions(10).map((opt) =>
+                    React.cloneElement(opt, {
+                      disabled:
+                        filters.maxBeds &&
+                        parseInt(opt.props.value) > parseInt(filters.maxBeds),
+                    })
+                  )}
                 </select>
               </div>
             </div>
@@ -172,7 +189,13 @@ const AllProperties = () => {
                   onChange={handleSelectChange("maxBeds")}
                 >
                   <option value="">No maximum</option>
-                  {generateOptions(10)}
+                  {generateOptions(10).map((opt) =>
+                    React.cloneElement(opt, {
+                      disabled:
+                        filters.minBeds &&
+                        parseInt(opt.props.value) < parseInt(filters.minBeds),
+                    })
+                  )}
                 </select>
               </div>
             </div>
@@ -185,7 +208,13 @@ const AllProperties = () => {
                   onChange={handleSelectChange("minBaths")}
                 >
                   <option value="">No minimum</option>
-                  {generateOptions(10)}
+                  {generateOptions(10).map((opt) =>
+                    React.cloneElement(opt, {
+                      disabled:
+                        filters.maxBaths &&
+                        parseInt(opt.props.value) > parseInt(filters.maxBaths),
+                    })
+                  )}
                 </select>
               </div>
             </div>
@@ -198,7 +227,13 @@ const AllProperties = () => {
                   onChange={handleSelectChange("maxBaths")}
                 >
                   <option value="">No maximum</option>
-                  {generateOptions(10)}
+                  {generateOptions(10).map((opt) =>
+                    React.cloneElement(opt, {
+                      disabled:
+                        filters.minBaths &&
+                        parseInt(opt.props.value) < parseInt(filters.minBaths),
+                    })
+                  )}
                 </select>
               </div>
             </div>
