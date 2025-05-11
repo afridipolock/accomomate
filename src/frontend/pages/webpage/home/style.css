@@ -13,4 +13,151 @@
             object-fit: cover;
         }
     }
+
+    .register-us {
+        margin-top: 20px;
+        padding: 50px 100px;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        background-color: #E4F1EE;
+
+        .left {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            .top {
+                font-size: 25px;
+                font-weight: 600;
+                letter-spacing: 1px;
+            }
+
+            .bottom {
+                font-size: 18px;
+                font-weight: 500;
+            }
+        }
+
+        .right {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            button {
+                width: 500px;
+                height: 45px;
+                padding: 10px 80px;
+                font-size: 20px;
+                font-weight: 600;
+                cursor: pointer;
+                background: none;
+                border: 1px solid #696969;
+                border-radius: 10px;
+                transition: 0.3s ease-in-out all;
+                background-color: white;
+
+                &:hover {
+                    border: 1px solid #D3E4D6;
+                    color: #000632;
+                    background: #D3E4D6;
+                    box-shadow: 0 26px 58px 0 rgba(0, 0, 0, .22), 0 5px 14px 0 rgba(0, 0, 0, .18);
+                }
+            }
+        }
+    }
+
+    .house-add {
+        margin-top: 20px;
+        padding: 50px 100px;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 50px;
+
+        .cards {
+            border: 1px solid #ccc;
+            width: 350px;
+            height: 350px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s all ease-in-out;
+            display: flex;
+            flex-direction: column;
+
+            &:hover {
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .card-image {
+                width: 100%;
+                height: 45%;
+                overflow: hidden;
+            }
+
+            .card-info {
+                width: 100%;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                text-align: center;
+
+                .title {
+                    font-size: 20px;
+                    font-weight: 600;
+                    letter-spacing: 0.75px;
+                }
+
+                .text {
+                    font-size: 15px;
+                    font-weight: 500;
+                }
+
+                .cite {
+                    font-size: 14px;
+                    color: #949494;
+                    width: 100%;
+                    height: 40px;
+                    background-color: #E4F1EE;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    span {
+                        transition: 0.3s ease-in-out all;
+                        cursor: pointer;
+                        font-weight: 600;
+                    }
+
+                    i {
+                        margin-left: 10px;
+                        transition: margin-left 0.3s ease-in-out;
+                    }
+
+                    &:hover {
+                        span {
+                            color: #000632;
+                        }
+
+                        i {
+                            margin-left: 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
