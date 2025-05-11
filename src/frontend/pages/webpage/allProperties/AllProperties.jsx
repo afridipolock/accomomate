@@ -53,6 +53,13 @@ const AllProperties = () => {
       );
     });
 
+  const [isSaved, setIsSaved] = useState(false);
+
+  const toggleSave = () => {
+    setIsSaved(!isSaved);
+  };
+  const [showFull, setShowFull] = useState(false);
+
   return (
     <div className="desktop-window">
       <div className="desktop-all-properties">
@@ -331,28 +338,66 @@ const AllProperties = () => {
             <div className="properties-bottom">
               <div className="property-card">
                 <div className="property-card-left">
-                  <div className="card-left-img"></div>
-                  <div className="card-left-price"></div>
+                  <div className="card-left-img">img</div>
+                  <div className="card-left-price">৳ 10,000</div>
                 </div>
                 <div className="property-card-right">
-                  <div className="card-right-title"></div>
+                  <div className="card-right-title">title</div>
                   <div className="card-right-info">
-                    <div className="card-right-type"></div>
-                    <div className="card-right-beds"></div>
-                    <div className="card-right-baths"></div>
+                    <div className="card-right-type">Flat</div>
+                    <div className="card-right-beds">
+                      <i class="fa-solid fa-bed"></i>3
+                    </div>
+                    <div className="card-right-baths">
+                      <i class="fa-solid fa-bath"></i>2
+                    </div>
                   </div>
-                  <div className="card-right-sub-title"></div>
-                  <div className="card-right-address"></div>
+                  <div
+                    className={`card-right-description ${
+                      showFull ? "expanded" : ""
+                    }`}
+                    onClick={() => setShowFull(!showFull)}
+                  >
+                    description
+                    {!showFull && (
+                      <span className="see-more"> ...See more</span>
+                    )}
+                  </div>
+                  <div className="card-right-address">Dhaka</div>
                   <div className="card-right-contact">
-                    <div className="card-right-contact-number"></div>
-                    <div className="card-right-contact-mail"></div>
-                    <div className="card-right-contact-save"></div>
+                    <div className="card-right-contact-owner-info">
+                      <div className="card-right-contact-owner-name">
+                        Mohammad Hadi
+                      </div>
+                      <div className="card-right-contact-number">
+                        01234567890
+                      </div>
+                    </div>
+                    <div className="card-right-contact-mail">
+                      test@gmail.com
+                    </div>
+                    <div
+                      className="card-right-contact-save"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleSave();
+                      }}
+                    >
+                      <i
+                        className={
+                          isSaved
+                            ? "fa-solid fa-heart saved-heart"
+                            : "fa-regular fa-heart"
+                        }
+                      ></i>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <div className="bottom-right">bottom right</div>
       </div>
     </div>
   );
