@@ -1,0 +1,142 @@
+// Import default components
+import React, { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
+
+import Navbar from "./frontend/components/webpage/navbar/Navbar";
+
+// Import Web Pages
+import Home from "./frontend/pages/webpage/home/Home";
+import Login from "./frontend/pages/webpage/Login/Login";
+import Registration from "./frontend/pages/webpage/registration/Registration";
+
+// Import dashboard pages
+
+// New page always scroll on top
+const NewPageScrollTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
+
+// Page size tracker
+const PageSizeTracker = () => {
+  const [size, setSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setSize({ width: window.innerWidth, height: window.innerHeight });
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return (
+    <div
+      style={{
+        position: "fixed",
+        bottom: "10px",
+        right: "10px",
+        background: "rgba(25, 35, 85, 0.75)",
+        color: "white",
+        padding: "5px 10px",
+        borderRadius: "5px",
+        fontSize: "14px",
+        zIndex: 10000000,
+      }}
+    >
+      Width: {size.width}px, Height: {size.height}px
+    </div>
+  );
+};
+
+// WebPage Layout
+const WebPageLayout = ({ children }) => {
+  const isLocalhost =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1" ||
+    window.location.hostname === "192.168.0.119";
+  return (
+    <>
+      {isLocalhost && <PageSizeTracker />}
+      <NewPageScrollTop />
+      <Navbar />
+      {children}
+    </>
+  );
+};
+
+const allTitle = {
+  "/": "Home",
+  "/login": "Login",
+  "/registration": "Registration",
+};
+
+function TitleUpdater() {
+  const location = useLocation();
+  useEffect(() => {
+    const setTitle =
+      "AccomoMate - " + allTitle[location.pathname] || "AccomoMate";
+    document.title = setTitle;
+  }, [location]);
+
+  return null;
+}
+
+const Main = () => {
+  const [usingPhone, setUsingPhone] = useState(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setUsingPhone(window.innerWidth <= 756);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return (
+    <Router>
+      <TitleUpdater />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <WebPageLayout>
+              <Home />
+            </WebPageLayout>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <WebPageLayout>
+              <Login />
+            </WebPageLayout>
+          }
+        />
+        <Route
+          path="/registration"
+          element={
+            <WebPageLayout>
+              <Registration />
+            </WebPageLayout>
+          }
+        />
+      </Routes>
+    </Router>
+  );
+};
+
+export default Main;
