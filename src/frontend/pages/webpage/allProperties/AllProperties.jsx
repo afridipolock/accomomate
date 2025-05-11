@@ -305,17 +305,32 @@ const AllProperties = () => {
                 </div>
               </div>
               <div className="properties-right">
-                <label htmlFor="sort">Sort:</label>
-                <select name="sort" id="sort">
-                  <option value="">Recommended</option>
-                  <option value="">Price lowest first</option>
-                  <option value="">Price highest first</option>
-                  <option value="">Newest added</option>
-                  <option value="">Oldest added</option>
-                </select>
+                <div className="sorting">
+                  <label htmlFor="sort">Sort:</label>
+                  <select name="sort" id="sort">
+                    <option value="">Recommended</option>
+                    <option value="">Price lowest first</option>
+                    <option value="">Price highest first</option>
+                    <option value="">Newest added</option>
+                    <option value="">Oldest added</option>
+                  </select>
+                </div>
+                <div className="showing">
+                  <label htmlFor="show">Show:</label>
+                  <select name="show" id="show">
+                    <option value="25" selected>
+                      25
+                    </option>
+                    <option value="50">50</option>
+                    <option value="75">75</option>
+                    <option value="100">100</option>
+                  </select>
+                </div>
               </div>
             </div>
-            <div className="bottom">bottom</div>
+            <div className="bottom">
+              <div className="property-card"></div>
+            </div>
           </div>
         </div>
       </div>

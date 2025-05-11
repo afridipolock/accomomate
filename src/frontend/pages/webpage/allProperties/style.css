@@ -245,25 +245,50 @@
                     align-items: center;
                     justify-content: end;
                     padding-right: 50px;
-                    gap: 5px;
+                    gap: 20px;
 
-                    label {
-                        font-size: 16px;
-                        font-weight: 600;
+                    .sorting {
+                        label {
+                            font-size: 16px;
+                            font-weight: 600;
+                            margin-right: 8px;
+                        }
+
+                        select {
+                            width: 200px;
+                            height: 40px;
+                            padding: 10px;
+                            border: 1px solid #ccc;
+                            border-radius: 8px;
+                            outline: none;
+                            font-size: 16px;
+                            font-weight: 500;
+                            transition: 0.3s ease-in-out all;
+                            background-color: white;
+                            cursor: pointer;
+                        }
                     }
 
-                    select {
-                        width: 200px;
-                        height: 40px;
-                        padding: 10px;
-                        border: 1px solid #ccc;
-                        border-radius: 8px;
-                        outline: none;
-                        font-size: 16px;
-                        font-weight: 500;
-                        transition: 0.3s ease-in-out all;
-                        background-color: white;
-                        cursor: pointer;
+                    .showing {
+                        label {
+                            font-size: 16px;
+                            font-weight: 600;
+                            margin-right: 8px;
+                        }
+
+                        select {
+                            width: 75px;
+                            height: 40px;
+                            padding: 10px;
+                            border: 1px solid #ccc;
+                            border-radius: 8px;
+                            outline: none;
+                            font-size: 16px;
+                            font-weight: 500;
+                            transition: 0.3s ease-in-out all;
+                            background-color: white;
+                            cursor: pointer;
+                        }
                     }
                 }
             }
