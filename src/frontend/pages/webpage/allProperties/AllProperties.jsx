@@ -1,7 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style.css";
 
 const AllProperties = () => {
+  const initialFilters = {
+    radius: "",
+    availability: [],
+    minPrice: "",
+    maxPrice: "",
+    minBeds: "",
+    maxBeds: "",
+    minBaths: "",
+    maxBaths: "",
+    tenure: [],
+    propertyType: [],
+    features: [],
+  };
+
+  const [filters, setFilters] = useState(initialFilters);
+
+  const handleSelectChange = (key) => (e) => {
+    setFilters({ ...filters, [key]: e.target.value });
+  };
+
+  const handleCheckboxChange = (key, value) => (e) => {
+    const checked = e.target.checked;
+    setFilters((prev) => {
+      const current = prev[key];
+      const updated = checked
+        ? [...current, value]
+        : current.filter((item) => item !== value);
+      return { ...prev, [key]: updated };
+    });
+  };
+
+  const handleApply = () => {
+    console.log("Applied Filters:", filters);
+    // You can now fetch or filter based on this
+  };
+
+  const handleReset = () => {
+    setFilters(initialFilters);
+  };
+
+  const generateOptions = (count, step = 1, prefix = "", suffix = "") =>
+    Array.from({ length: count }, (_, i) => {
+      const value = (i + 1) * step;
+      return (
+        <option key={value} value={value}>
+          {prefix}
+          {value.toLocaleString()}
+          {suffix}
+        </option>
+      );
+    });
+
   return (
     <div className="desktop-window">
       <div className="desktop-all-properties">
@@ -30,8 +82,190 @@ const AllProperties = () => {
           </div>
         </div>
         <div className="bottom">
-          <div className="left">Left</div>
-          <div className="right">right</div>
+          <div className="left">
+            {/* Radius */}
+            <div className="filter">
+              <div className="filter-title">Max radius</div>
+              <div className="filter-value-select">
+                <select
+                  value={filters.radius}
+                  onChange={handleSelectChange("radius")}
+                >
+                  <option value="">This area only</option>
+                  {["0.25", "0.50", "1", "3", "5", "10", "15", "20", "50"].map(
+                    (km) => (
+                      <option key={km} value={km}>
+                        + {km} KM
+                      </option>
+                    )
+                  )}
+                </select>
+              </div>
+            </div>
+
+            {/* Availability */}
+            <div className="filter">
+              <div className="filter-title">Property Availability</div>
+              {["available", "available-soon", "not-available"].map((val) => (
+                <div className="filter-value-checkbox" key={val}>
+                  <input
+                    type="checkbox"
+                    id={val}
+                    checked={filters.availability.includes(val)}
+                    onChange={handleCheckboxChange("availability", val)}
+                  />
+                  <label htmlFor={val}>
+                    {val
+                      .replace("-", " ")
+                      .replace(/\b\w/g, (l) => l.toUpperCase())}
+                  </label>
+                </div>
+              ))}
+            </div>
+
+            {/* Price Filters */}
+            <div className="filter">
+              <div className="filter-title">Minimum Price</div>
+              <div className="filter-value-select">
+                <select
+                  value={filters.minPrice}
+                  onChange={handleSelectChange("minPrice")}
+                >
+                  <option value="">No minimum</option>
+                  {generateOptions(10, 5000, "৳ ")}
+                </select>
+              </div>
+            </div>
+
+            <div className="filter">
+              <div className="filter-title">Maximum Price</div>
+              <div className="filter-value-select">
+                <select
+                  value={filters.maxPrice}
+                  onChange={handleSelectChange("maxPrice")}
+                >
+                  <option value="">No maximum</option>
+                  {generateOptions(10, 5000, "৳ ")}
+                </select>
+              </div>
+            </div>
+
+            {/* Beds and Baths */}
+            <div className="filter">
+              <div className="filter-title">Minimum Beds</div>
+              <div className="filter-value-select">
+                <select
+                  value={filters.minBeds}
+                  onChange={handleSelectChange("minBeds")}
+                >
+                  <option value="">No minimum</option>
+                  {generateOptions(10)}
+                </select>
+              </div>
+            </div>
+
+            <div className="filter">
+              <div className="filter-title">Maximum Beds</div>
+              <div className="filter-value-select">
+                <select
+                  value={filters.maxBeds}
+                  onChange={handleSelectChange("maxBeds")}
+                >
+                  <option value="">No maximum</option>
+                  {generateOptions(10)}
+                </select>
+              </div>
+            </div>
+
+            <div className="filter">
+              <div className="filter-title">Minimum Bathrooms</div>
+              <div className="filter-value-select">
+                <select
+                  value={filters.minBaths}
+                  onChange={handleSelectChange("minBaths")}
+                >
+                  <option value="">No minimum</option>
+                  {generateOptions(10)}
+                </select>
+              </div>
+            </div>
+
+            <div className="filter">
+              <div className="filter-title">Maximum Bathrooms</div>
+              <div className="filter-value-select">
+                <select
+                  value={filters.maxBaths}
+                  onChange={handleSelectChange("maxBaths")}
+                >
+                  <option value="">No maximum</option>
+                  {generateOptions(10)}
+                </select>
+              </div>
+            </div>
+
+            {/* Tenure Types */}
+            <div className="filter">
+              <div className="filter-title">Tenure Types</div>
+              {["short-term", "long-term", "freehold"].map((val) => (
+                <div className="filter-value-checkbox" key={val}>
+                  <input
+                    type="checkbox"
+                    id={val}
+                    checked={filters.tenure.includes(val)}
+                    onChange={handleCheckboxChange("tenure", val)}
+                  />
+                  <label htmlFor={val}>{val.replace("-", " ")}</label>
+                </div>
+              ))}
+            </div>
+
+            {/* Property Types */}
+            <div className="filter">
+              <div className="filter-title">Property Types</div>
+              {["whole-properties", "shared-properties"].map((val) => (
+                <div className="filter-value-checkbox" key={val}>
+                  <input
+                    type="checkbox"
+                    id={val}
+                    checked={filters.propertyType.includes(val)}
+                    onChange={handleCheckboxChange("propertyType", val)}
+                  />
+                  <label htmlFor={val}>{val.replace("-", " ")}</label>
+                </div>
+              ))}
+            </div>
+
+            {/* Property Features */}
+            <div className="filter">
+              <div className="filter-title">Property must have</div>
+              {["parking", "garden", "lift", "balcony", "rooftop"].map(
+                (val) => (
+                  <div className="filter-value-checkbox" key={val}>
+                    <input
+                      type="checkbox"
+                      id={val}
+                      checked={filters.features.includes(val)}
+                      onChange={handleCheckboxChange("features", val)}
+                    />
+                    <label htmlFor={val}>{val.replace("-", " ")}</label>
+                  </div>
+                )
+              )}
+            </div>
+
+            <div className="filter-apply">
+              <button onClick={handleApply}>Apply filter</button>
+            </div>
+            <div className="filter-reset">
+              <button onClick={handleReset}>Reset filter</button>
+            </div>
+          </div>
+
+          <div className="right properties">
+            {/* Later: Show filtered properties here */}
+            <h2>Property List</h2>
+            <p>Filtered properties will appear here...</p>
+          </div>
         </div>
       </div>
     </div>
