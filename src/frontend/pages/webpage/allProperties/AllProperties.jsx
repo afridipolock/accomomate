@@ -29,7 +29,10 @@ const AllProperties = () => {
             </div>
           </div>
         </div>
-        <div className="bottom">bottom</div>
+        <div className="bottom">
+          <div className="left">Left</div>
+          <div className="right">right</div>
+        </div>
       </div>
     </div>
   );
