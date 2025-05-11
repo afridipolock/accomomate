@@ -297,9 +297,25 @@ const AllProperties = () => {
           </div>
 
           <div className="right properties">
-            {/* Later: Show filtered properties here */}
-            <h2>Property List</h2>
-            <p>Filtered properties will appear here...</p>
+            <div className="properties-top">
+              <div className="properties-left">
+                <div className="counting-result">
+                  <span className="count">100</span>
+                  <span>Properties found</span>
+                </div>
+              </div>
+              <div className="properties-right">
+                <label htmlFor="sort">Sort:</label>
+                <select name="sort" id="sort">
+                  <option value="">Recommended</option>
+                  <option value="">Price lowest first</option>
+                  <option value="">Price highest first</option>
+                  <option value="">Newest added</option>
+                  <option value="">Oldest added</option>
+                </select>
+              </div>
+            </div>
+            <div className="bottom">bottom</div>
           </div>
         </div>
       </div>
