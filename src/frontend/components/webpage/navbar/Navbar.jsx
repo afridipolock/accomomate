@@ -98,11 +98,6 @@ const Navbar = () => {
                 Login
               </NavLink>
             </li>
-            <li>
-              <span to="" className="nav-link">
-                Cart
-              </span>
-            </li>
             {user && (
               <li className="nav-dropdown">
                 <span>

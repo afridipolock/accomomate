@@ -111,7 +111,7 @@
                     width: 200px;
                     height: auto;
                     flex-direction: column;
-                    top: 100%;
+                    top: 100;
                     right: 0;
                     padding: 0px 0px;
                     white-space: nowrap;

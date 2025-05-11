@@ -1,0 +1,67 @@
+.desktop-all-properties {
+    padding: 50px 100px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+
+    .top {
+        width: 100%;
+        height: 200px;
+
+        .search {
+            width: 100%;
+            height: 100%;
+            background-color: #E4F1EE;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+
+            .title {
+                font-size: 30px;
+                font-weight: 600;
+                letter-spacing: 1px;
+            }
+
+            .sub-title {
+                font-size: 20px;
+                font-weight: 600;
+            }
+
+            .search-info {
+                font-size: 16px;
+                font-weight: 500;
+            }
+
+            .inputs {
+                width: 100%;
+                height: auto;
+                display: flex;
+                gap: 20px;
+                align-items: center;
+                justify-content: center;
+
+                input {
+                    width: 350px;
+                    height: 50px;
+                    font-size: 18px;
+                    font-weight: 500;
+                    padding: 10px;
+                    border-radius: 8px;
+                    border: 1px solid #ccc;
+                    transition: 0.3s ease-in-out all;
+                }
+            }
+        }
+    }
+
+    .bottom {
+        border: 1px solid;
+        width: 100%;
+        height: auto;
+    }
+}

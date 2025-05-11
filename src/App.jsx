@@ -14,6 +14,9 @@ import Navbar from "./frontend/components/webpage/navbar/Navbar";
 import Home from "./frontend/pages/webpage/home/Home";
 import Login from "./frontend/pages/webpage/Login/Login";
 import Registration from "./frontend/pages/webpage/registration/Registration";
+import AllProperties from "./frontend/pages/webpage/allProperties/AllProperties";
+import AvailableProperties from "./frontend/pages/webpage/availableProperties/AvailableProperties";
+import FindLandlord from "./frontend/pages/webpage/findLandlord/FindLandlord";
 
 // Import dashboard pages
 
@@ -131,6 +134,30 @@ const Main = () => {
           element={
             <WebPageLayout>
               <Registration />
+            </WebPageLayout>
+          }
+        />
+        <Route
+          path="/all-properties"
+          element={
+            <WebPageLayout>
+              <AllProperties />
+            </WebPageLayout>
+          }
+        />
+        <Route
+          path="/available-properties"
+          element={
+            <WebPageLayout>
+              <AvailableProperties />
+            </WebPageLayout>
+          }
+        />
+        <Route
+          path="/find-landlord"
+          element={
+            <WebPageLayout>
+              <FindLandlord />
             </WebPageLayout>
           }
         />
