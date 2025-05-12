@@ -25,10 +25,13 @@ const Navbar = () => {
 
   //   User Navbar control
   const [user, setUser] = useState(null);
+  const [usertype, setUserType] = useState(null);
+
   useEffect(() => {
     // fake login after 1s
     setTimeout(() => {
       setUser({ name: "John Doe" });
+      setUserType("landlord");
     }, 1000);
   }, []);
 
@@ -114,6 +117,11 @@ const Navbar = () => {
                   <NavLink to="/view-profile" className="nav-link-drop">
                     View Profile
                   </NavLink>
+                  {usertype === "landlord" && (
+                    <NavLink to="/manage-properties" className="nav-link-drop">
+                      Manage Properties
+                    </NavLink>
+                  )}
                   <NavLink to="/order-list" className="nav-link-drop">
                     All Order
                   </NavLink>
