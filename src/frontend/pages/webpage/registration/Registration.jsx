@@ -709,7 +709,7 @@ const Registration = () => {
                 <button type="submit">Registration</button>
               </div>
               <div className="login-redirect">
-                <span onClick={() => navigate("/")}>
+                <span onClick={() => navigate("/login")}>
                   Already have account? Login Here
                 </span>
               </div>
