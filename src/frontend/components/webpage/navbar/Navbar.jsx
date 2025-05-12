@@ -91,6 +91,12 @@ const Navbar = () => {
                 <NavLink to="/contact-us" className="nav-link-drop">
                   Contact us
                 </NavLink>
+                <NavLink to="/privacy-policy" className="nav-link-drop">
+                  Privacy Policy
+                </NavLink>
+                <NavLink to="/terms-condition" className="nav-link-drop">
+                  Terms & Condition
+                </NavLink>
               </div>
             </li>
             <li>

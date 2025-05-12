@@ -1,0 +1,454 @@
+.desktop-registration {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .top {
+        width: 100%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 25px;
+        flex-direction: column;
+
+        .logo {
+            width: 100%;
+            height: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            img {
+                width: 250px;
+                height: 180px;
+                object-fit: cover;
+            }
+        }
+    }
+
+    .bottom {
+        width: 100%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .registration-form {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+
+            .login-info {
+                position: relative;
+
+                .logo {
+                    width: 100%;
+                    height: auto;
+                    overflow: hidden;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    img {
+                        width: 300px;
+                        height: 180px;
+                        object-fit: cover;
+                    }
+                }
+
+                span {
+                    font-size: 20px;
+                    font-weight: 500;
+                    letter-spacing: 2px;
+                }
+            }
+
+            .form-inputs {
+                position: relative;
+                width: 100%;
+                height: auto;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+
+                .inputs-pair {
+                    width: 100%;
+                    height: auto;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 25px;
+                    position: relative;
+
+                    .inputs {
+                        position: relative;
+                        width: 100%;
+                        height: auto;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+
+                        .input-checkbox,
+                        .input-text,
+                        .input-dob,
+                        .input-password {
+                            position: relative;
+                            width: 350px;
+                            height: 40px;
+                            display: flex;
+                            align-items: center;
+                        }
+
+                        .re-password {
+                            margin-top: -10px;
+                        }
+
+                        .input-checkbox {
+                            gap: 10px;
+                            border: 1px solid #ccc;
+                            border-radius: 8px;
+                            padding-left: 20px;
+
+                            input {
+                                cursor: pointer;
+                                width: auto;
+                                height: 40%;
+                                outline: none;
+                                transition: 0.3s ease-in-out all;
+                            }
+
+                            input:checked+label {
+                                color: black;
+                            }
+
+                            label {
+                                cursor: pointer;
+                                color: #696969;
+                                font-weight: 500;
+                            }
+                        }
+
+                        .input-text {
+                            input {
+                                width: 100%;
+                                height: 100%;
+                                padding: 10px;
+                                border: 1px solid #ccc;
+                                border-radius: 8px;
+                                outline: none;
+                                font-size: 16px;
+                                font-weight: 500;
+                                transition: 0.3s ease-in-out all;
+                            }
+
+                            label {
+                                position: absolute;
+                                left: 10px;
+                                top: 50%;
+                                transform: translateY(-50%);
+                                color: #696969;
+                                font-weight: 500;
+                                pointer-events: none;
+                                transition: 0.3s ease all;
+                                background: #fff;
+                                padding: 0 10px;
+                            }
+
+                            input:focus {
+                                border: 1px solid #696969;
+                                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+                            }
+
+                            input:valid {
+                                border: 1px solid black;
+                            }
+
+                            input:focus+label,
+                            input:valid+label {
+                                top: 50%;
+                                transform: translateY(-190%);
+                                left: 5px;
+                                font-size: 14px;
+                                color: black;
+                                font-weight: 600;
+                            }
+                        }
+
+                        .input-dob {
+                            input {
+                                width: 100%;
+                                height: 100%;
+                                padding: 10px;
+                                border: 1px solid #ccc;
+                                border-radius: 8px;
+                                outline: none;
+                                font-size: 16px;
+                                font-weight: 500;
+                                transition: 0.3s ease-in-out all;
+                            }
+
+                            label {
+                                position: absolute;
+                                left: 10px;
+                                top: 50%;
+                                transform: translateY(-50%);
+                                color: #696969;
+                                font-weight: 500;
+                                pointer-events: none;
+                                transition: 0.3s ease all;
+                                background: #fff;
+                                padding: 0 10px;
+                            }
+
+                            input:focus {
+                                border: 1px solid #696969;
+                                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+                            }
+
+                            input:valid {
+                                border: 1px solid black;
+                            }
+
+                            input:focus+label,
+                            input:valid+label {
+                                top: 50%;
+                                transform: translateY(-190%);
+                                left: 5px;
+                                font-size: 14px;
+                                color: black;
+                                font-weight: 600;
+                            }
+                        }
+
+                        .input-password {
+                            margin-bottom: 10px;
+
+                            input {
+                                width: 100%;
+                                height: 100%;
+                                padding: 0px 35px 0px 10px;
+                                border: 1px solid #ccc;
+                                border-radius: 8px;
+                                outline: none;
+                                font-size: 16px;
+                                font-weight: 500;
+                                transition: 0.3s ease-in-out all;
+                            }
+
+                            label {
+                                position: absolute;
+                                left: 10px;
+                                top: 50%;
+                                transform: translateY(-50%);
+                                color: #696969;
+                                font-weight: 500;
+                                pointer-events: none;
+                                transition: 0.3s ease all;
+                                background: #fff;
+                                padding: 0 10px;
+                            }
+
+                            input:focus {
+                                border: 1px solid #696969;
+                                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+                            }
+
+                            input:valid {
+                                border: 1px solid black;
+                            }
+
+                            input:focus+label,
+                            input:valid+label {
+                                top: 50%;
+                                transform: translateY(-190%);
+                                left: 5px;
+                                font-size: 14px;
+                                color: black;
+                                font-weight: 600;
+                            }
+
+                            i {
+                                position: absolute;
+                                right: 10px;
+                                color: #696969;
+                                transition: 0.3s ease-in-out;
+                                cursor: pointer;
+
+                                &:hover {
+                                    color: black;
+                                }
+                            }
+                        }
+
+                        .password-strength {
+                            width: 90%;
+                            height: 100%;
+                            display: flex;
+                            flex-direction: row;
+                            gap: 10px;
+
+                            .password-strength-bar {
+                                flex: 1;
+                                height: 8px;
+                                background-color: #e0e0e0;
+                                border-radius: 5px;
+                                transition: background-color 0.3s ease-in-out all;
+                            }
+
+                        }
+
+                        .error {
+                            width: 100%;
+                            height: 20px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin: 5px 0px;
+
+                            span {
+                                color: #B90E0A;
+                                font-weight: 600;
+                                font-size: 13px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .terms-section {
+                width: 100%;
+                height: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                margin-bottom: 20px;
+
+                span {
+                    border: none;
+                    font-size: 15px;
+                    font-weight: 600;
+                    color: #696969;
+                    cursor: pointer;
+                    transition: 0.3s ease-in-out all;
+
+                    &:hover {
+                        color: black;
+                    }
+                }
+            }
+
+            .terms-panel-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 9999;
+
+                .terms-panel {
+                    background-color: #fff;
+                    padding: 30px;
+                    border-radius: 12px;
+                    max-width: 600px;
+                    width: 90%;
+                    max-height: 80vh;
+                    overflow: hidden;
+                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+                    position: relative;
+                }
+
+                .terms-scroll {
+                    max-height: 300px;
+                    overflow-y: auto;
+                    margin: 20px 0;
+                    padding-right: 10px;
+                    border: 1px solid #f0f0f0;
+                }
+
+                button {
+                    width: 100%;
+                    height: 45px;
+                    padding: 10px 80px;
+                    font-size: 20px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    background: none;
+                    border: 1px solid #696969;
+                    border-radius: 10px;
+                    transition: 0.3s ease-in-out all;
+
+                    &:hover {
+                        border: 1px solid #F5934B;
+                        color: white;
+                        background: #F49C3B;
+                        box-shadow: 0 26px 58px 0 rgba(0, 0, 0, .22), 0 5px 14px 0 rgba(0, 0, 0, .18);
+                    }
+                }
+            }
+
+
+            .register-button {
+                width: 100%;
+                height: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                button {
+                    padding: 10px 80px;
+                    font-size: 20px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    background: none;
+                    border: 1px solid #696969;
+                    border-radius: 10px;
+                    transition: 0.3s ease-in-out all;
+
+                    &:hover {
+                        border: 1px solid #F5934B;
+                        color: white;
+                        background: #F49C3B;
+                        box-shadow: 0 26px 58px 0 rgba(0, 0, 0, .22), 0 5px 14px 0 rgba(0, 0, 0, .18);
+                    }
+                }
+            }
+
+            .login-redirect {
+                width: 100%;
+                height: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 10px;
+
+                span {
+                    border: none;
+                    font-size: 15px;
+                    font-weight: 600;
+                    color: #696969;
+                    cursor: pointer;
+                    transition: 0.3s ease-in-out all;
+
+                    &:hover {
+                        color: black;
+                    }
+                }
+            }
+        }
+    }
+}
