@@ -4,9 +4,9 @@ By registering with **AccomoMate**, users and property owners agree to the follo
 
 ## Definitions
 
-- **Platform**: Refers to **AccomoMate**, the digital service for listing and booking accommodations.
-- **User**: Anyone who registers to browse, book, or communicate through the platform.
-- **Owner**: A registered individual or entity who lists properties for rent or lease.
+- **Platform** : Refers to **AccomoMate**, the digital service for listing and booking accommodations.
+- **User** : Anyone who registers to browse, book, or communicate through the platform.
+- **Owner** : A registered individual or entity who lists properties for rent or lease.
 
 ## Eligibility
 
@@ -16,13 +16,13 @@ By registering with **AccomoMate**, users and property owners agree to the follo
 
 ## User Rights & Responsibilities
 
-### Users can:
+### Users can
 
 - Browse all available accommodations.
 - Use filters to search based on preferences (location, price, amenities, etc.).
 - Book or express interest in properties via the platform.
 
-### Users must:
+### Users must
 
 - Provide accurate personal information during registration.
 - Not engage in fraudulent, abusive, or illegal behavior.
@@ -30,13 +30,13 @@ By registering with **AccomoMate**, users and property owners agree to the follo
 
 ## Owner Rights & Responsibilities
 
-### Owners can:
+### Owners can
 
 - List properties with accurate details and images.
 - Set their own pricing, availability, and rules.
 - **Cancel or remove a listing at any time**, with or without prior notice.
 
-### Owners must:
+### Owners must
 
 - Ensure the property is legal, safe, and accurately described.
 - Maintain updated availability and pricing information.

@@ -3,6 +3,7 @@ import "./style.css";
 import Logo from "../../../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 import TermsAndCondition from "../../../components/termsCondition/terms-and-conditions.md";
+import ReactMarkdown from "react-markdown";
 
 const Registration = () => {
   const navigate = useNavigate();
@@ -689,7 +690,9 @@ const Registration = () => {
                 <div className="terms-panel-overlay">
                   <div className="terms-panel">
                     <h2>Terms & Conditions</h2>
-                    <div className="terms-scroll">{terms}</div>
+                    <div className="terms-scroll">
+                      <ReactMarkdown>{terms}</ReactMarkdown>
+                    </div>
                     <button
                       onClick={() => {
                         setIsTermsAccepted(true);
