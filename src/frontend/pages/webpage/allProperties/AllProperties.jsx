@@ -130,7 +130,7 @@ const AllProperties = ({ property }) => {
                   <label htmlFor={val}>
                     {val
                       .replace("-", " ")
-                      .replace(/\b\w/g, (l) => l.toUpperCase())}
+                      .replace(/\b\w/g, (char) => char.toUpperCase())}
                   </label>
                 </div>
               ))}
@@ -263,7 +263,11 @@ const AllProperties = ({ property }) => {
                     checked={filters.tenure.includes(val)}
                     onChange={handleCheckboxChange("tenure", val)}
                   />
-                  <label htmlFor={val}>{val.replace("-", " ")}</label>
+                  <label htmlFor={val}>
+                    {val
+                      .replace("-", " ")
+                      .replace(/\b\w/g, (char) => char.toUpperCase())}
+                  </label>
                 </div>
               ))}
             </div>
@@ -279,7 +283,11 @@ const AllProperties = ({ property }) => {
                     checked={filters.propertyType.includes(val)}
                     onChange={handleCheckboxChange("propertyType", val)}
                   />
-                  <label htmlFor={val}>{val.replace("-", " ")}</label>
+                  <label htmlFor={val}>
+                    {val
+                      .replace("-", " ")
+                      .replace(/\b\w/g, (char) => char.toUpperCase())}
+                  </label>
                 </div>
               ))}
             </div>
@@ -287,19 +295,28 @@ const AllProperties = ({ property }) => {
             {/* Property Features */}
             <div className="filter">
               <div className="filter-title">Property must have</div>
-              {["parking", "garden", "lift", "balcony", "rooftop"].map(
-                (val) => (
-                  <div className="filter-value-checkbox" key={val}>
-                    <input
-                      type="checkbox"
-                      id={val}
-                      checked={filters.features.includes(val)}
-                      onChange={handleCheckboxChange("features", val)}
-                    />
-                    <label htmlFor={val}>{val.replace("-", " ")}</label>
-                  </div>
-                )
-              )}
+              {[
+                "parking",
+                "garden",
+                "lift-access",
+                "balcony",
+                "rooftop-access",
+                "internet-connection",
+              ].map((val) => (
+                <div className="filter-value-checkbox" key={val}>
+                  <input
+                    type="checkbox"
+                    id={val}
+                    checked={filters.features.includes(val)}
+                    onChange={handleCheckboxChange("features", val)}
+                  />
+                  <label htmlFor={val}>
+                    {val
+                      .replace("-", " ")
+                      .replace(/\b\w/g, (char) => char.toUpperCase())}
+                  </label>
+                </div>
+              ))}
             </div>
 
             <div className="filter-apply">
