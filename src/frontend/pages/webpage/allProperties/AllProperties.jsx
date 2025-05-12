@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./style.css";
+import { useNavigate } from "react-router-dom";
 
-const AllProperties = () => {
+const AllProperties = ({ property }) => {
   const initialFilters = {
     radius: "",
     availability: [],
@@ -15,6 +16,7 @@ const AllProperties = () => {
     propertyType: [],
     features: [],
   };
+  const description = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident cum voluptatibus expedita impedit odio dolorum voluptas. Magni dicta explicabo distinctio non! Quidem esse, accusamus laboriosam voluptatem quas suscipit. Esse, odit.`;
 
   const [filters, setFilters] = useState(initialFilters);
 
@@ -58,7 +60,12 @@ const AllProperties = () => {
   const toggleSave = () => {
     setIsSaved(!isSaved);
   };
-  const [showFull, setShowFull] = useState(false);
+
+  // Property details
+  const navigate = useNavigate();
+  const handlePropertyCardClick = () => {
+    navigate(`/property?id=${property.id}`);
+  };
 
   return (
     <div className="desktop-window">
@@ -303,7 +310,7 @@ const AllProperties = () => {
             </div>
           </div>
 
-          <div className="right properties">
+          <div className="middle properties">
             <div className="properties-top">
               <div className="properties-left">
                 <div className="counting-result">
@@ -336,7 +343,7 @@ const AllProperties = () => {
               </div>
             </div>
             <div className="properties-bottom">
-              <div className="property-card">
+              <div className="property-card" onClick={handlePropertyCardClick}>
                 <div className="property-card-left">
                   <div className="card-left-img">img</div>
                   <div className="card-left-price">৳ 10,000</div>
@@ -352,16 +359,10 @@ const AllProperties = () => {
                       <i class="fa-solid fa-bath"></i>2
                     </div>
                   </div>
-                  <div
-                    className={`card-right-description ${
-                      showFull ? "expanded" : ""
-                    }`}
-                    onClick={() => setShowFull(!showFull)}
-                  >
-                    description
-                    {!showFull && (
-                      <span className="see-more"> ...See more</span>
-                    )}
+                  <div className="card-right-description">
+                    {description.length > 300
+                      ? description.slice(0, 300) + "..."
+                      : description}
                   </div>
                   <div className="card-right-address">Dhaka</div>
                   <div className="card-right-contact">
@@ -396,8 +397,8 @@ const AllProperties = () => {
               </div>
             </div>
           </div>
+          <div className="right-ad">bottom right</div>
         </div>
-        <div className="bottom-right">bottom right</div>
       </div>
     </div>
   );
