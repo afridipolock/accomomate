@@ -143,7 +143,13 @@ npm install --save-dev nodemon
 npm start
 ```
 
-- For backend navigate to /backend
+- For backend and database navigate to /backend
+
+- First get ready your database
+- Here we use mysql
+- Navigate to config/db.sql
+- Run all the query to setup database and table
+- your database is ready
 
 ```
 cd src/backend
