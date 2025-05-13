@@ -18,6 +18,7 @@ import AllProperties from "./frontend/pages/webpage/allProperties/AllProperties"
 import AvailableProperties from "./frontend/pages/webpage/availableProperties/AvailableProperties";
 import FindLandlord from "./frontend/pages/webpage/findLandlord/FindLandlord";
 import Property from "./frontend/pages/webpage/property/Property";
+import ViewProfile from "./frontend/pages/webpage/viewProfile/ViewProfile";
 // Import dashboard pages
 
 // New page always scroll on top
@@ -166,6 +167,14 @@ const Main = () => {
           element={
             <WebPageLayout>
               <Property />
+            </WebPageLayout>
+          }
+        />
+        <Route
+          path="/view-profile"
+          element={
+            <WebPageLayout>
+              <ViewProfile />
             </WebPageLayout>
           }
         />
