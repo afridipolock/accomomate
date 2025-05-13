@@ -4,6 +4,8 @@ import axios from "axios";
 const ViewProfile = () => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [completion, setCompletion] = useState(0);
+  const [isEditing, setIsEditing] = useState(false);
 
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -14,47 +16,6 @@ const ViewProfile = () => {
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
-
-  // User information
-  const [firstName, setFirstName] = useState("");
-  const [isFirstNameTouched, setIsFirstNameTouched] = useState(false);
-  const [isFirstNameValid, setIsFirstNameValid] = useState(false);
-
-  const [lastName, setLastName] = useState("");
-  const [isLastNameTouched, setIsLastNameTouched] = useState(false);
-  const [isLastNameValid, setIsLastNameValid] = useState(false);
-
-  const [userName, setUserName] = useState("");
-  const [isUserNameTouched, setIsUserNameTouched] = useState(false);
-  const [isUserNameValid, setIsUserNameValid] = useState(false);
-
-  const [email, setEmail] = useState("");
-  const [isEmailTouched, setIsEmailTouched] = useState(false);
-  const [isEmailValid, setIsEmailValid] = useState(false);
-
-  const [dob, setDob] = useState("");
-  const [isDobTouched, setIsDobTouched] = useState(false);
-  const [isDobValid, setIsDobValid] = useState(false);
-
-  const [phone, setPhone] = useState("");
-  const [isPhoneTouched, setIsPhoneTouched] = useState(false);
-  const [isPhoneValid, setIsPhoneValid] = useState(false);
-
-  const [nid, setNid] = useState("");
-  const [isNidTouched, setIsNidTouched] = useState(false);
-  const [isNidValid, setIsNidValid] = useState(false);
-
-  const [address, setAddress] = useState("");
-  const [isAddressTouched, setIsAddressTouched] = useState(false);
-  const [isAddressValid, setIsAddressValid] = useState(false);
-
-  const [gender, setGender] = useState("");
-  const [isGenderTouched, setIsGenderTouched] = useState(false);
-  const [isGenderValid, setIsGenderValid] = useState(false);
-
-  const [profilePic, setProfilePic] = useState("");
-  const [isProfilePicTouched, setIsProfilePicTouched] = useState(false);
-  const [isProfilePicValid, setIsProfilePicValid] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -78,11 +39,35 @@ const ViewProfile = () => {
 
     fetchProfile();
   }, []);
+
   const statusLabels = {
-    active: "Active",
-    inactive: "Inactive",
-    hold: "On Hold",
+    verified: "Verified",
+    hold: "Waiting for verification",
     disable: "Disabled",
+  };
+  const getStatusColor = (status) => {
+    switch (status.toLowerCase()) {
+      case "verified":
+        return "#00FA9A";
+      case "hold":
+        return "#f1c40f";
+      case "disabled":
+        return "#FA8072";
+      default:
+        return "#e74c3c";
+    }
+  };
+  const getStatusUpdate = (status) => {
+    switch (status.toLowerCase()) {
+      case "verified":
+        return "Thank you for update your profile information.";
+      case "hold":
+        return "Please update your profile information to get verified.";
+      case "disabled":
+        return "Your profile has been disabled, to active it talk with any admin.";
+      default:
+        return "Something went wrong";
+    }
   };
 
   // Handle password change
@@ -285,6 +270,30 @@ const ViewProfile = () => {
 
     reader.readAsDataURL(file);
   };
+  // Profile completion
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const token = localStorage.getItem("authToken");
+
+      const res = await axios.get(
+        "http://localhost:5000/api/auth/get-profile",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setProfile(res.data);
+
+      const statusCheck = await axios.get(
+        "http://localhost:5000/api/auth/check-profile",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setCompletion(statusCheck.data.completion);
+    };
+
+    fetchProfile();
+  }, []);
 
   return (
     <div className="desktop-window">
@@ -415,15 +424,47 @@ const ViewProfile = () => {
           </div>
         </div>
         <div className="right">
+          <div
+            className="profile-confirmation"
+            style={{
+              backgroundColor: profile
+                ? getStatusColor(profile.status)
+                : "#bdc3c7",
+            }}
+          >
+            <span>
+              {profile ? getStatusUpdate(profile.status) : "Loading status..."}
+            </span>
+            {completion}% complete {completion === 100 && "(Verified)"}
+          </div>
           <div className="title">
             <span>Profile Information</span>
+            <button onClick={() => setIsEditing(!isEditing)}>
+              {isEditing ? "Stop Editing" : "Edit Profile"}
+            </button>
           </div>
           <div className="user-information">
             <div className="information-pair">
               <div className="input-info">
-                <input type="text" name="firstname" id="firstname" />
+                <label htmlFor="firstname">First Name</label>
+                <input
+                  type="text"
+                  name="firstname"
+                  id="firstname"
+                  value={profile?.firstname || "Need to fill this information"}
+                  disabled={!isEditing}
+                />
               </div>
-              <div className="input-info"></div>
+              <div className="input-info">
+                <label htmlFor="lastname">Last Name</label>
+                <input
+                  type="text"
+                  name="lastname"
+                  id="lastname"
+                  value={profile?.lastname || "Need to fill this information"}
+                  disabled={!isEditing}
+                />
+              </div>
             </div>
           </div>
         </div>

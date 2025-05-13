@@ -81,6 +81,9 @@
 
                     .user-info {
                         margin-right: 5px;
+                        font-size: 15px;
+                        font-weight: 500;
+                        color: #000632;
                     }
 
                     i {
@@ -267,5 +270,119 @@
         flex: 1;
         height: 100%;
         padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .profile-confirmation {
+            width: 100%;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            justify-content: space-between;
+
+            span {
+                font-weight: 500;
+            }
+        }
+
+        .title {
+            width: 100%;
+            height: auto;
+            padding: 10px 0px;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            span {
+                font-size: 18px;
+                font-weight: 700;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                color: #7F7F7F;
+            }
+
+            button {
+                padding: 10px 20px;
+                font-size: 15px;
+                font-weight: 600;
+                cursor: pointer;
+                background: none;
+                border: 1px solid #696969;
+                border-radius: 10px;
+                transition: 0.3s ease-in-out all;
+
+                &:hover {
+                    border: 1px solid #F5934B;
+                    color: white;
+                    background: #F49C3B;
+                    box-shadow: 0 26px 58px 0 rgba(0, 0, 0, .22), 0 5px 14px 0 rgba(0, 0, 0, .18);
+                }
+            }
+        }
+
+        .user-information {
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+
+            .information-pair {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: row;
+                gap: 50px;
+
+                .input-info {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+
+                    label {
+                        font-size: 16px;
+                        font-weight: 500;
+                        padding: 5px 5px;
+                        color: #696969;
+                        pointer-events: none;
+                    }
+
+                    input {
+                        width: 100%;
+                        height: 100%;
+                        padding: 10px;
+                        border: 1px solid #ccc;
+                        border-radius: 8px;
+                        outline: none;
+                        font-size: 16px;
+                        font-weight: 500;
+                        transition: 0.3s ease-in-out all;
+                    }
+
+                    input:focus {
+                        border: 1px solid #696969;
+                        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+                    }
+
+                    input:valid {
+                        border: 1px solid black;
+                    }
+
+                    input:focus+label,
+                    input:valid+label {
+                        top: 50%;
+                        transform: translateY(-190%);
+                        left: 5px;
+                        font-size: 14px;
+                        color: black;
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
     }
 }
