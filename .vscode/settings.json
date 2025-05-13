@@ -3,6 +3,7 @@
         "accomomate",
         "firstname",
         "lastname",
+        "profilepic",
         "usertype"
     ],
     "git.ignoreLimitWarning": true

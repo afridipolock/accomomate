@@ -70,7 +70,7 @@ exports.userLogin = async (req, res) => {
                 isowner: user.isowner,
                 usetype: user.usertype
             },
-            process.env.JWT_SECRET, { expiresIn: '1h' }
+            process.env.JWT_SECRET, { expiresIn: '8h' }
         );
         res.json({ message: 'Login Successful', token, user });
     } catch (error) {
@@ -84,9 +84,10 @@ exports.getProfile = async (req, res) => {
         const userId = req.user.id;
 
         const [rows] = await db.query(
-            'SELECT id, username, firstname, lastname, email, phone, dob, usertype FROM users WHERE id = ?',
+            'SELECT id, username, firstname, lastname, usertype, dob, email, phone, gender, nid, address, status, profilepic FROM users WHERE id = ?',
             [userId]
         );
+
 
         if (rows.length === 0) {
             return res.status(404).json({ message: 'User not found' });
