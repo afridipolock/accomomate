@@ -574,7 +574,14 @@ const AllProperties = ({ property }) => {
                   <div className="property-card-right">
                     <div className="card-right-title">{prop.adtitle}</div>
                     <div className="card-right-info">
-                      <div className="card-right-type">{prop.types}</div>
+                      <div className="card-right-type">
+                        {prop.types === "whole"
+                          ? "Whole Property"
+                          : prop.types === "shared"
+                          ? "Shared Property"
+                          : prop.types}
+                      </div>
+
                       <div className="card-right-beds">
                         <i className="fa-solid fa-bed"></i> {prop.beds}
                       </div>

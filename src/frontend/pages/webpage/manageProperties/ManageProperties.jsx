@@ -74,7 +74,14 @@ const ManageProperties = () => {
     const bath = bathrooms;
     const description = e.target.desc.value;
     const shortdescription = shortDesc;
-    const address = e.target.address.value;
+    const house = e.target.house.value;
+    const road = e.target.road.value;
+    const street = e.target.street.value;
+    const area = e.target.area.value;
+    const district = e.target.district.value;
+    const post = e.target.post.value;
+
+    const address = `House: ${house}, Road: ${road}, Street: ${street}, Area: ${area}, District: ${district}, Post: ${post}`;
 
     // Collect features (checkbox values)
     const features = [];
@@ -122,6 +129,12 @@ const ManageProperties = () => {
         description,
         shortdescription,
         address,
+        house,
+        road,
+        street,
+        area,
+        district,
+        post,
         images: imageBase64,
         floorplans,
       };
@@ -349,12 +362,56 @@ const ManageProperties = () => {
                     maxLength={300}
                   />
                 </div>
-                <div className="input">
+                <div className="input input-address">
                   <label htmlFor="address">
-                    Property Address
+                    Property Address (If you don't have any information type
+                    n/a)
                     <span className="must-input">*</span>
                   </label>
-                  <input type="text" name="address" id="address" required />
+                  <div className="address-inputs">
+                    <input
+                      type="text"
+                      name="house"
+                      id="house"
+                      required
+                      placeholder="Enter house no"
+                    />
+                    <input
+                      type="text"
+                      name="road"
+                      id="road"
+                      required
+                      placeholder="Enter road no"
+                    />
+                    <input
+                      type="text"
+                      name="street"
+                      id="street"
+                      required
+                      placeholder="Enter street"
+                    />
+                    <input
+                      type="text"
+                      name="area"
+                      id="area"
+                      required
+                      placeholder="Enter Area"
+                    />
+                    <input
+                      type="text"
+                      name="district"
+                      id="district"
+                      required
+                      placeholder="Enter District"
+                    />
+                    <input
+                      type="text"
+                      name="post"
+                      id="post"
+                      required
+                      placeholder="Enter post code"
+                    />
+                  </div>
                 </div>
                 <div className="input">
                   <label>

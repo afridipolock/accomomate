@@ -3,22 +3,15 @@ const db = require('../config/database')
 exports.addProperty = async (req, res) => {
     const { id: ownerid } = req.user;
     const {
-        adtitle,
-        price,
-        types,
-        tenure,
-        feature,
-        beds,
-        bath,
-        description,
-        shortdescription,
-        address,
-        images,
-        floorplans
+        adtitle, price, types, tenure, feature, beds, bath,
+        description, shortdescription, address,
+        house, road, street, area, district, post,
+        images, floorplans
     } = req.body;
 
+
     // Validation
-    if (!adtitle || !price || !types || !tenure || !feature || !beds || !bath || !description || !shortdescription || !address || !images?.length) {
+    if (!adtitle || !price || !types || !tenure || !feature || !beds || !bath || !description || !shortdescription || !address || !house || !road || !street || !area || !district || !post || !images?.length) {
         return res.status(400).json({ message: "All required fields must be filled." });
     }
 
@@ -27,10 +20,18 @@ exports.addProperty = async (req, res) => {
 
         // Insert into properties table
         const [propertyResult] = await conn.query(
-            `INSERT INTO properties (ownerid, adtitle, price, types, tenure, feature, beds, bath, description, shortdescription, address)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-            [ownerid, adtitle, price, types, tenure, feature, beds, bath, description, shortdescription, address]
+            `INSERT INTO properties (
+              ownerid, adtitle, price, types, tenure, feature,
+              beds, bath, description, shortdescription, address,
+              house, road, street, area, district, post
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            [
+                ownerid, adtitle, price, types, tenure, feature,
+                beds, bath, description, shortdescription, address,
+                house, road, street, area, district, post
+            ]
         );
+
 
         const propid = propertyResult.insertId;
 
@@ -79,5 +80,36 @@ exports.getProperties = async (req, res) => {
     } catch (err) {
         console.error("Get properties error:", err);
         res.status(500).json({ message: "Failed to fetch properties." });
+    }
+};
+
+exports.getPropertyById = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const [property] = await db.query(
+            `SELECT p.*, u.firstname, u.lastname, u.phone, u.email
+         FROM properties p
+         JOIN users u ON p.ownerid = u.id
+         WHERE p.id = ?`,
+            [id]
+        );
+
+        if (property.length === 0) {
+            return res.status(404).json({ message: "Property not found" });
+        }
+
+        // Optionally fetch images
+        const [images] = await db.query(
+            `SELECT image FROM properties_image WHERE propid = ? AND image IS NOT NULL`,
+            [id]
+        );
+
+        property[0].images = images.map((img) => img.image);
+
+        res.json(property[0]);
+    } catch (err) {
+        console.error("Get property by ID error:", err);
+        res.status(500).json({ message: "Server error" });
     }
 };
