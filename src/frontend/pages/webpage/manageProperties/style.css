@@ -197,6 +197,55 @@
                     }
                 }
             }
+
+            .image-preview-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-top: 10px;
+            }
+
+            .image-preview {
+                position: relative;
+            }
+
+            .image-preview button {
+                position: absolute;
+                top: 0;
+                right: 0;
+                background: #ff5c5c;
+                border: none;
+                color: white;
+                cursor: pointer;
+                padding: 2px 5px;
+            }
+        }
+
+        .button {
+            width: 100%;
+            height: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px;
+
+            button {
+                padding: 10px 50px;
+                font-size: 15px;
+                font-weight: 600;
+                cursor: pointer;
+                background: none;
+                border: 1px solid #696969;
+                border-radius: 10px;
+                transition: 0.3s ease-in-out all;
+
+                &:hover {
+                    border: 1px solid #F5934B;
+                    color: white;
+                    background: #F49C3B;
+                    box-shadow: 0 26px 58px 0 rgba(0, 0, 0, .22), 0 5px 14px 0 rgba(0, 0, 0, .18);
+                }
+            }
         }
     }
 

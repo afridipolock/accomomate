@@ -178,42 +178,7 @@ exports.uploadProfilePicBase64 = async (req, res) => {
     }
 };
 
-// controller/profile.controller.js
 
-// exports.checkProfileCompletion = async (req, res) => {
-//     const userId = req.user.id;
-
-//     try {
-//         const [rows] = await db.query(
-//             `SELECT username, firstname, lastname, password, dob, email, phone, nid, address, gender, status
-//          FROM users WHERE id = ?`,
-//             [userId]
-//         );
-
-//         const user = rows[0];
-//         if (!user) return res.status(404).json({ message: "User not found" });
-
-//         const fields = [
-//             "username", "firstname", "lastname",
-//             "password", "dob", "email",
-//             "phone", "nid", "address", "gender"
-//         ];
-
-//         const filled = fields.filter(field => user[field] && user[field] !== "0" && user[field] !== "");
-//         const percent = Math.floor((filled.length / fields.length) * 100);
-
-//         let finalStatus = user.status;
-//         if (percent === 100 && user.status !== "verified") {
-//             await db.query("UPDATE users SET status = 'verified' WHERE id = ?", [userId]);
-//             finalStatus = "verified";
-//         }
-
-//         res.json({ completion: percent, status: percent === 100 ? "verified" : user.status });
-//     } catch (err) {
-//         console.error("Profile check error:", err);
-//         res.status(500).json({ message: "Internal server error" });
-//     }
-// };
 exports.checkProfileCompletion = async (req, res) => {
     const userId = req.user.id;
 

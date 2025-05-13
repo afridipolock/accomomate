@@ -20,8 +20,10 @@ app.use(bodyParser.urlencoded({ extended: true, limit: "10mb", parameterLimit: 1
 
 
 const authRoutes = require('./routes/auth.routes');
+const propertyRoutes = require('./routes/property.route')
 
 app.use('/api/auth', authRoutes);
+app.use('/api/property', propertyRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
