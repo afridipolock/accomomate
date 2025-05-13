@@ -15,6 +15,47 @@ const ViewProfile = () => {
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
 
+  // User information
+  const [firstName, setFirstName] = useState("");
+  const [isFirstNameTouched, setIsFirstNameTouched] = useState(false);
+  const [isFirstNameValid, setIsFirstNameValid] = useState(false);
+
+  const [lastName, setLastName] = useState("");
+  const [isLastNameTouched, setIsLastNameTouched] = useState(false);
+  const [isLastNameValid, setIsLastNameValid] = useState(false);
+
+  const [userName, setUserName] = useState("");
+  const [isUserNameTouched, setIsUserNameTouched] = useState(false);
+  const [isUserNameValid, setIsUserNameValid] = useState(false);
+
+  const [email, setEmail] = useState("");
+  const [isEmailTouched, setIsEmailTouched] = useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(false);
+
+  const [dob, setDob] = useState("");
+  const [isDobTouched, setIsDobTouched] = useState(false);
+  const [isDobValid, setIsDobValid] = useState(false);
+
+  const [phone, setPhone] = useState("");
+  const [isPhoneTouched, setIsPhoneTouched] = useState(false);
+  const [isPhoneValid, setIsPhoneValid] = useState(false);
+
+  const [nid, setNid] = useState("");
+  const [isNidTouched, setIsNidTouched] = useState(false);
+  const [isNidValid, setIsNidValid] = useState(false);
+
+  const [address, setAddress] = useState("");
+  const [isAddressTouched, setIsAddressTouched] = useState(false);
+  const [isAddressValid, setIsAddressValid] = useState(false);
+
+  const [gender, setGender] = useState("");
+  const [isGenderTouched, setIsGenderTouched] = useState(false);
+  const [isGenderValid, setIsGenderValid] = useState(false);
+
+  const [profilePic, setProfilePic] = useState("");
+  const [isProfilePicTouched, setIsProfilePicTouched] = useState(false);
+  const [isProfilePicValid, setIsProfilePicValid] = useState(false);
+
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -104,29 +145,6 @@ const ViewProfile = () => {
     setStrength(strength);
     return { message, color, isValid };
   };
-
-  // const handlePasswordChange = (e) => {
-  //   const value = e.target.value;
-  //   setPassword(value);
-
-  //   // First check: is it same as old password?
-  //   if (value === oldPassword) {
-  //     setPasswordError({
-  //       message: "New password cannot be the same as old password.",
-  //       color: "#e74c3c",
-  //     });
-  //     setIsPasswordValid(false);
-  //     return;
-  //   }
-
-  //   // Then run the usual validation
-  //   const { message, color, isValid } = passwordValidate(
-  //     value,
-  //     setPasswordStrength
-  //   );
-  //   setPasswordError({ message, color });
-  //   setIsPasswordValid(isValid);
-  // };
 
   const handlePasswordBlur = () => {
     setIsPasswordTouched(true);
@@ -230,13 +248,63 @@ const ViewProfile = () => {
     setIsPasswordValid(isValid);
   };
 
+  // handle profile picture change
+  const handleProfilePicChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onloadend = async () => {
+      const base64String = reader.result;
+
+      setProfile((prev) => ({
+        ...prev,
+        profilepic: base64String,
+      }));
+
+      try {
+        const token = localStorage.getItem("authToken");
+
+        await axios.put(
+          "http://localhost:5000/api/auth/upload-profile-pic",
+          { image: base64String },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        alert("Profile picture updated!");
+      } catch (err) {
+        console.error("Upload failed:", err);
+        alert("Failed to upload image.");
+      }
+    };
+
+    reader.readAsDataURL(file);
+  };
+
   return (
     <div className="desktop-window">
       <div className="desktop-profile">
         <div className="left">
           <div className="top">
             <div className="profile-pic">
-              <img src="" alt="img" />
+              <img src={profile?.profilepic || ""} alt="profile" />
+              <button
+                onClick={() => document.getElementById("profileUpload").click()}
+              >
+                Update Profile Picture
+              </button>
+              <input
+                type="file"
+                id="profileUpload"
+                style={{ display: "none" }}
+                onChange={handleProfilePicChange}
+                accept="image/*"
+              />
             </div>
             {profile ? (
               <div className="about">
@@ -346,7 +414,19 @@ const ViewProfile = () => {
             </form>
           </div>
         </div>
-        <div className="right">right</div>
+        <div className="right">
+          <div className="title">
+            <span>Profile Information</span>
+          </div>
+          <div className="user-information">
+            <div className="information-pair">
+              <div className="input-info">
+                <input type="text" name="firstname" id="firstname" />
+              </div>
+              <div className="input-info"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

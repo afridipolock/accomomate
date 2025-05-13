@@ -5,6 +5,7 @@
     overflow: hidden;
     display: flex;
     flex-direction: row;
+    gap: 10px;
 
     .left {
         border: 1px solid #ccc;
@@ -25,13 +26,34 @@
                 height: 300px;
                 overflow: hidden;
                 display: flex;
+                flex-direction: column;
                 align-items: center;
                 justify-content: center;
+                gap: 20px;
 
                 img {
-                    width: 250px;
-                    height: 250px;
+                    width: 200px;
+                    height: 200px;
                     object-fit: cover;
+                    border: 1px solid;
+                }
+
+                button {
+                    padding: 10px 30px;
+                    font-size: 16px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    background: none;
+                    border: 1px solid #696969;
+                    border-radius: 10px;
+                    transition: 0.3s ease-in-out all;
+
+                    &:hover {
+                        border: 1px solid #F5934B;
+                        color: white;
+                        background: #F49C3B;
+                        box-shadow: 0 26px 58px 0 rgba(0, 0, 0, .22), 0 5px 14px 0 rgba(0, 0, 0, .18);
+                    }
                 }
             }
 
@@ -56,6 +78,10 @@
                     height: auto;
                     display: flex;
                     align-items: center;
+
+                    .user-info {
+                        margin-right: 5px;
+                    }
 
                     i {
                         width: 20px;

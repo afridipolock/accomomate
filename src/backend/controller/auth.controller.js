@@ -157,3 +157,23 @@ exports.validateNewPassword = async (req, res) => {
         res.status(500).json({ message: "Server error" });
     }
 };
+
+exports.uploadProfilePicBase64 = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const { image } = req.body;
+
+        if (!image) {
+            return res.status(400).json({ message: "No image provided" });
+        }
+
+        await db.query("UPDATE users SET profilepic = ? WHERE id = ?", [image, userId]);
+
+        res.status(200).json({ message: "Profile picture updated" });
+        console.log("IMAGE LENGTH:", image?.length);
+        console.log("USER ID:", req.user.id);
+    } catch (error) {
+        console.error("Base64 Upload Error:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};

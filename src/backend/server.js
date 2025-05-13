@@ -6,10 +6,18 @@ require('dotenv').config();
 
 const app = express();
 
+// app.use(cors());
+// app.use(helmet());
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true, parameterLimit: 100000, limit: "500mb" }))
+// // app.use(express.json());
+// app.use(bodyParser.json({ limit: "10mb" }));
+
 app.use(cors());
 app.use(helmet());
-app.use(bodyParser.json());
-app.use(express.json());
+app.use(bodyParser.json({ limit: "10mb" }));
+app.use(bodyParser.urlencoded({ extended: true, limit: "10mb", parameterLimit: 100000 }));
+
 
 const authRoutes = require('./routes/auth.routes');
 
