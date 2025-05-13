@@ -99,3 +99,61 @@ exports.getProfile = async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 };
+
+exports.changePassword = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const { oldPassword, newPassword } = req.body;
+
+        if (!oldPassword || !newPassword) {
+            return res.status(400).json({ message: "Old and new passwords are required" });
+        }
+
+        // 1. Get current password hash from DB
+        const [rows] = await db.query('SELECT password FROM users WHERE id = ?', [userId]);
+        if (rows.length === 0) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const currentHashedPassword = rows[0].password;
+
+        // 2. Compare old password with hashed one
+        const match = await bcrypt.compare(oldPassword, currentHashedPassword);
+        if (!match) {
+            return res.status(401).json({ message: "Old password is incorrect" });
+        }
+
+        // 3. Check if new password is same as old one
+        const samePassword = await bcrypt.compare(newPassword, currentHashedPassword);
+        if (samePassword) {
+            return res.status(400).json({ message: "New password must be different from old password" });
+        }
+
+        // 4. Hash new password and update
+        const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+        await db.query('UPDATE users SET password = ? WHERE id = ?', [hashedNewPassword, userId]);
+
+        return res.status(200).json({ message: "Password changed successfully" });
+    } catch (error) {
+        console.error("Change Password Error:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+exports.validateNewPassword = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const { newPassword } = req.body;
+
+        const [rows] = await db.query('SELECT password FROM users WHERE id = ?', [userId]);
+        if (rows.length === 0) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const isSame = await bcrypt.compare(newPassword, rows[0].password);
+        return res.json({ isSame });
+    } catch (error) {
+        console.error("Validate Password Error:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+};

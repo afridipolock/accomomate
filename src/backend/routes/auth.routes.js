@@ -7,6 +7,9 @@ router.post('/user-registration', authController.userRegistration);
 router.post('/user-login', authController.userLogin);
 router.get("/check-username/:username", authController.checkUsername);
 router.get('/get-profile', verifyToken, authController.getProfile);
+router.put('/change-password', verifyToken, authController.changePassword);
+router.post('/validate-password', verifyToken, authController.validateNewPassword);
+
 
 
 module.exports = router;

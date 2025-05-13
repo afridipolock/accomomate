@@ -105,28 +105,28 @@ const ViewProfile = () => {
     return { message, color, isValid };
   };
 
-  const handlePasswordChange = (e) => {
-    const value = e.target.value;
-    setPassword(value);
+  // const handlePasswordChange = (e) => {
+  //   const value = e.target.value;
+  //   setPassword(value);
 
-    // First check: is it same as old password?
-    if (value === oldPassword) {
-      setPasswordError({
-        message: "New password cannot be the same as old password.",
-        color: "#e74c3c",
-      });
-      setIsPasswordValid(false);
-      return;
-    }
+  //   // First check: is it same as old password?
+  //   if (value === oldPassword) {
+  //     setPasswordError({
+  //       message: "New password cannot be the same as old password.",
+  //       color: "#e74c3c",
+  //     });
+  //     setIsPasswordValid(false);
+  //     return;
+  //   }
 
-    // Then run the usual validation
-    const { message, color, isValid } = passwordValidate(
-      value,
-      setPasswordStrength
-    );
-    setPasswordError({ message, color });
-    setIsPasswordValid(isValid);
-  };
+  //   // Then run the usual validation
+  //   const { message, color, isValid } = passwordValidate(
+  //     value,
+  //     setPasswordStrength
+  //   );
+  //   setPasswordError({ message, color });
+  //   setIsPasswordValid(isValid);
+  // };
 
   const handlePasswordBlur = () => {
     setIsPasswordTouched(true);
@@ -161,6 +161,73 @@ const ViewProfile = () => {
   };
   const toggleShowNewPassword = () => {
     setShowNewPassword((prev) => !prev);
+  };
+
+  const handleChangePassword = async (e) => {
+    e.preventDefault();
+
+    try {
+      const token = localStorage.getItem("authToken");
+
+      const res = await axios.put(
+        "http://localhost:5000/api/auth/change-password",
+        {
+          oldPassword,
+          newPassword: password,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      alert(res.data.message); // Show success
+      setOldPassword("");
+      setPassword("");
+      setPasswordStrength(0);
+      setIsPasswordValid(false);
+      setPasswordError("");
+    } catch (err) {
+      alert(err.response?.data?.message || "Password change failed");
+    }
+  };
+
+  const handlePasswordChange = async (e) => {
+    const value = e.target.value;
+    setPassword(value);
+
+    const token = localStorage.getItem("authToken");
+
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/auth/validate-password",
+        { newPassword: value },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (res.data.isSame) {
+        setPasswordError({
+          message: "New password cannot be the same as old password.",
+          color: "#e74c3c",
+        });
+        setIsPasswordValid(false);
+        return;
+      }
+    } catch (err) {
+      console.error("Real-time password check failed", err);
+    }
+
+    const { message, color, isValid } = passwordValidate(
+      value,
+      setPasswordStrength
+    );
+    setPasswordError({ message, color });
+    setIsPasswordValid(isValid);
   };
 
   return (
@@ -208,9 +275,12 @@ const ViewProfile = () => {
             <div className="title">
               <span>Change Password</span>
             </div>
-            <form className="password-change-form">
+            <form
+              className="password-change-form"
+              onSubmit={handleChangePassword}
+            >
               <div className="input-pair">
-                <div className="inputs">
+                <div className="inputs old-password-input">
                   <input
                     type={`${showOldPassword ? "text" : "password"}`}
                     name="oldPassword"
@@ -229,7 +299,7 @@ const ViewProfile = () => {
                 </div>
               </div>
               <div className="input-pair">
-                <div className="inputs">
+                <div className="inputs new-password-input">
                   <input
                     type={`${showNewPassword ? "text" : "password"}`}
                     name="password"
@@ -264,6 +334,14 @@ const ViewProfile = () => {
                     {passwordError.message}
                   </span>
                 </div>
+              </div>
+              <div className="button">
+                <button
+                  type="submit"
+                  disabled={!isPasswordValid || !oldPassword}
+                >
+                  Change Password
+                </button>
               </div>
             </form>
           </div>

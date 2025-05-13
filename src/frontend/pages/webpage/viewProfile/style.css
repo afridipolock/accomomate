@@ -107,7 +107,6 @@
                     height: 40px;
                     display: flex;
                     align-items: center;
-                    margin-bottom: 10px;
 
                     input {
                         width: 100%;
@@ -166,8 +165,16 @@
                     }
                 }
 
+                .old-password-input {
+                    margin-bottom: 20px;
+                }
+
+                .new-password-input {
+                    margin-bottom: 20px;
+                }
+
                 .password-strength {
-                    width: 90%;
+                    width: 300px;
                     height: 100%;
                     display: flex;
                     flex-direction: row;
@@ -195,6 +202,33 @@
                         color: #B90E0A;
                         font-weight: 600;
                         font-size: 13px;
+                    }
+                }
+            }
+
+            .button {
+                width: 100%;
+                height: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 10px;
+
+                button {
+                    padding: 10px 80px;
+                    font-size: 20px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    background: none;
+                    border: 1px solid #696969;
+                    border-radius: 10px;
+                    transition: 0.3s ease-in-out all;
+
+                    &:hover {
+                        border: 1px solid #F5934B;
+                        color: white;
+                        background: #F49C3B;
+                        box-shadow: 0 26px 58px 0 rgba(0, 0, 0, .22), 0 5px 14px 0 rgba(0, 0, 0, .18);
                     }
                 }
             }
