@@ -27,7 +27,7 @@ exports.userRegistration = async (req, res) => {
 
         // Insert into database
         await db.query(
-            `INSERT INTO users (userid, usertype, firstname, lastname, username, password, email, dob, phone)
+            `INSERT INTO users (id, usertype, firstname, lastname, username, password, email, dob, phone)
              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             [userId, userType, firstName, lastName, userName, hashed, email, dob, phone]
         );
@@ -65,12 +65,12 @@ exports.userLogin = async (req, res) => {
 
         const token = jwt.sign(
             {
-                userid: user.userid,
+                id: user.id,
                 username: user.username,
                 isowner: user.isowner,
                 usetype: user.usertype
             },
-            process.env.JWT_SECRET, { expiresIn: '8h' }
+            process.env.JWT_SECRET, { expiresIn: '1h' }
         );
         res.json({ message: 'Login Successful', token, user });
     } catch (error) {

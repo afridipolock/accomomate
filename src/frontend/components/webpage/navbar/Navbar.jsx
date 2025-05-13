@@ -28,23 +28,15 @@ const Navbar = () => {
   const [usertype, setUserType] = useState(null);
 
   useEffect(() => {
-    // fake login after 1s
-    setTimeout(() => {
-      setUser({ name: "John Doe" });
-      setUserType("landlord");
-    }, 1000);
+    const token = localStorage.getItem("authToken");
+    const userData = localStorage.getItem("user");
+
+    if (token && userData) {
+      const parsedUser = JSON.parse(userData);
+      setUser(parsedUser);
+      setUserType(parsedUser.usertype);
+    }
   }, []);
-
-  // Logged in with api
-
-  //   useEffect(() => {
-  //     const token = localStorage.getItem("authToken");
-  //     const userData = localStorage.getItem("user");
-
-  //     if (token && userData) {
-  //       setUser(JSON.parse(userData));
-  //     }
-  //   }, []);
 
   return (
     <div className={`desktop-navbar ${showNavbar ? "show" : "hide"}`}>
@@ -131,39 +123,19 @@ const Navbar = () => {
                   <NavLink to="/support" className="nav-link-drop">
                     Support
                   </NavLink>
-                  <NavLink to="/" className="nav-link-drop">
+                  <NavLink
+                    to="/"
+                    className="nav-link-drop"
+                    onClick={() => {
+                      localStorage.removeItem("user");
+                      setUser(null);
+                    }}
+                  >
                     Log Out
                   </NavLink>
                 </div>
               </li>
             )}
-            {/* When use api */}
-            {/* 
-            {user && (
-  <li className="nav-dropdown">
-    <span>
-      {user.name}
-      <i className="fa-solid fa-caret-down dropdown-icon"></i>
-    </span>
-    <div className="nav-link-drop-panel">
-      <NavLink to="/view-profile" className="nav-link-drop">View Profile</NavLink>
-      <NavLink to="/order-list" className="nav-link-drop">Orders</NavLink>
-      <NavLink to="/wish-list" className="nav-link-drop">Wishlist</NavLink>
-      <NavLink to="/support" className="nav-link-drop">Support</NavLink>
-      <span
-        className="nav-link-drop"
-        onClick={() => {
-          localStorage.removeItem("authToken");
-          localStorage.removeItem("user");
-          setUser(null);
-        }}
-      >
-        Log Out
-      </span>
-    </div>
-  </li>
-)}
- */}
           </ul>
         </div>
       </nav>

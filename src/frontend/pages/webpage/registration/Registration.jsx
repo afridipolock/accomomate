@@ -171,7 +171,7 @@ const Registration = () => {
           setUserNameError("");
           setIsUserNameValid(true);
         } else {
-          setUserNameError("Username is already taken ❌");
+          setUserNameError("Username is already taken! Try different one");
           setIsUserNameValid(false);
         }
       } else {
@@ -179,7 +179,7 @@ const Registration = () => {
         setIsUserNameValid(false);
       }
     } catch (err) {
-      console.error("❌ Username check error:", err);
+      console.error("Username check error:", err);
       setUserNameError("Error checking username");
       setIsUserNameValid(false);
     }
@@ -439,6 +439,59 @@ const Registration = () => {
       .then((data) => setTerms(data));
   }, []);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const isFormValid =
+      isUserTypeValid &&
+      isFirstNameValid &&
+      isLastNameValid &&
+      isUserNameValid &&
+      isEmailValid &&
+      isDobValid &&
+      isPhoneValid &&
+      isPasswordValid &&
+      isPasswordMatched &&
+      isTermsAccepted;
+
+    if (!isFormValid) {
+      alert("Please fill out all fields correctly before submitting.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/auth/user-registration",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userType,
+            firstName,
+            lastName,
+            userName,
+            email,
+            dob,
+            phone,
+            password,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("🎉 Registration successful!");
+        navigate("/"); // redirect to login
+      } else {
+        alert(data.message || "Registration failed");
+      }
+    } catch (err) {
+      console.error("Registration error:", err);
+      alert("Something went wrong.");
+    }
+  };
+
   return (
     <div className="desktop-window">
       <div className="desktop-registration">
@@ -450,7 +503,7 @@ const Registration = () => {
             <span>Please register yourself to use our service</span>
           </div>
           <div className="bottom">
-            <form className="registration-form">
+            <form className="registration-form" onSubmit={handleSubmit}>
               <div className="form-inputs">
                 <div className="inputs-pair">
                   <div className="inputs">

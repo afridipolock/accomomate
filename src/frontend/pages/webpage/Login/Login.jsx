@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../../../assets/logo.png";
+import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -63,6 +64,31 @@ const Login = () => {
   const toggleShowPassword = () => {
     setShowPassword((prev) => !prev);
   };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/user-login",
+        {
+          username: userName,
+          password,
+        }
+      );
+
+      const { token, user } = response.data;
+
+      // Save token and user info
+      localStorage.setItem("authToken", token);
+      localStorage.setItem("user", JSON.stringify(user));
+
+      window.location.href = "/";
+    } catch (err) {
+      console.error(err);
+      alert(err.response?.data?.message || "Login failed");
+    }
+  };
+
   return (
     <div className="desktop-window">
       <div className="desktop-login">
@@ -74,7 +100,7 @@ const Login = () => {
             <span>Please login to start your session</span>
           </div>
           <div className="bottom">
-            <form className="login-form">
+            <form className="login-form" onSubmit={handleLogin}>
               <div className="form-inputs">
                 <div className="inputs username">
                   <input
