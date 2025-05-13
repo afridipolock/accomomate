@@ -19,6 +19,7 @@ import AvailableProperties from "./frontend/pages/webpage/availableProperties/Av
 import FindLandlord from "./frontend/pages/webpage/findLandlord/FindLandlord";
 import Property from "./frontend/pages/webpage/property/Property";
 import ViewProfile from "./frontend/pages/webpage/viewProfile/ViewProfile";
+import ManageProperties from "./frontend/pages/webpage/manageProperties/ManageProperties";
 // Import dashboard pages
 
 // New page always scroll on top
@@ -85,6 +86,10 @@ const allTitle = {
   "/": "Home",
   "/login": "Login",
   "/registration": "Registration",
+  "/all-properties": "All Properties",
+  "/available-properties": "Available Properties",
+  "/manage-properties": "Manage Properties",
+  "/view-profile": "View Profile",
 };
 
 function TitleUpdater() {
@@ -99,17 +104,6 @@ function TitleUpdater() {
 }
 
 const Main = () => {
-  const [usingPhone, setUsingPhone] = useState(null);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setUsingPhone(window.innerWidth <= 756);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   return (
     <Router>
       <TitleUpdater />
@@ -175,6 +169,14 @@ const Main = () => {
           element={
             <WebPageLayout>
               <ViewProfile />
+            </WebPageLayout>
+          }
+        />
+        <Route
+          path="/manage-properties"
+          element={
+            <WebPageLayout>
+              <ManageProperties />
             </WebPageLayout>
           }
         />

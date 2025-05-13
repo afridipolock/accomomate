@@ -302,6 +302,11 @@ const AllProperties = ({ property }) => {
                 "balcony",
                 "rooftop-access",
                 "internet-connection",
+                "generator-access",
+                "supply-water",
+                "supply-gas",
+                "dedicated-security",
+                "cctv-camera",
               ].map((val) => (
                 <div className="filter-value-checkbox" key={val}>
                   <input
