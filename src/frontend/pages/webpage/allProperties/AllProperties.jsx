@@ -36,14 +36,10 @@ const AllProperties = ({ property }) => {
     });
   };
 
-  const handleApply = () => {
-    console.log("Applied Filters:", filters);
-    // You can now fetch or filter based on this
-  };
-
-  const handleReset = () => {
-    setFilters(initialFilters);
-  };
+  // const handleApply = () => {
+  //   console.log("Applied Filters:", filters);
+  //   // You can now fetch or filter based on this
+  // };
 
   const generateOptions = (count, step = 1, prefix = "") =>
     Array.from({ length: count }, (_, i) => {
@@ -83,6 +79,99 @@ const AllProperties = ({ property }) => {
 
     fetchProperties();
   }, []);
+
+  // filter property
+  const [allProperties, setAllProperties] = useState([]);
+  const [filteredProperties, setFilteredProperties] = useState([]);
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:5000/api/property/get-properties"
+        );
+        setAllProperties(res.data);
+        setFilteredProperties(res.data);
+      } catch (err) {
+        console.error("Failed to fetch properties:", err);
+      }
+    };
+
+    fetchProperties();
+  }, []);
+  const handleApply = () => {
+    let filtered = allProperties;
+
+    // Apply availability filter
+    if (filters.availability.length > 0) {
+      filtered = filtered.filter((property) =>
+        filters.availability.includes(property.availability)
+      );
+    }
+
+    // Apply price filters
+    if (filters.minPrice) {
+      filtered = filtered.filter(
+        (property) => property.price >= parseInt(filters.minPrice)
+      );
+    }
+    if (filters.maxPrice) {
+      filtered = filtered.filter(
+        (property) => property.price <= parseInt(filters.maxPrice)
+      );
+    }
+
+    // Apply beds filters
+    if (filters.minBeds) {
+      filtered = filtered.filter(
+        (property) => property.beds >= parseInt(filters.minBeds)
+      );
+    }
+    if (filters.maxBeds) {
+      filtered = filtered.filter(
+        (property) => property.beds <= parseInt(filters.maxBeds)
+      );
+    }
+
+    // Apply baths filters
+    if (filters.minBaths) {
+      filtered = filtered.filter(
+        (property) => property.bath >= parseInt(filters.minBaths)
+      );
+    }
+    if (filters.maxBaths) {
+      filtered = filtered.filter(
+        (property) => property.bath <= parseInt(filters.maxBaths)
+      );
+    }
+
+    // Apply tenure filter
+    if (filters.tenure.length > 0) {
+      filtered = filtered.filter((property) =>
+        filters.tenure.includes(property.tenure)
+      );
+    }
+
+    // Apply property type filter
+    if (filters.propertyType.length > 0) {
+      filtered = filtered.filter((property) =>
+        filters.propertyType.includes(property.types)
+      );
+    }
+
+    // Apply features filter
+    if (filters.features.length > 0) {
+      filtered = filtered.filter((property) =>
+        filters.features.every((feature) => property.feature.includes(feature))
+      );
+    }
+
+    setFilteredProperties(filtered);
+  };
+
+  const handleReset = () => {
+    setFilters(initialFilters);
+    setFilteredProperties(allProperties);
+  };
 
   return (
     <div className="desktop-window">
@@ -272,7 +361,7 @@ const AllProperties = ({ property }) => {
             {/* Tenure Types */}
             <div className="filter">
               <div className="filter-title">Tenure Types</div>
-              {["short-term", "long-term", "freehold"].map((val) => (
+              {/* {["short-term", "long-term", "freehold"].map((val) => (
                 <div className="filter-value-checkbox" key={val}>
                   <input
                     type="checkbox"
@@ -286,13 +375,30 @@ const AllProperties = ({ property }) => {
                       .replace(/\b\w/g, (char) => char.toUpperCase())}
                   </label>
                 </div>
+              ))} */}
+              {["short", "long", "freehold"].map((val) => (
+                <div className="filter-value-checkbox" key={val}>
+                  <input
+                    type="checkbox"
+                    id={val}
+                    checked={filters.tenure.includes(val)}
+                    onChange={handleCheckboxChange("tenure", val)}
+                  />
+                  <label htmlFor={val}>
+                    {val === "short"
+                      ? "Short Term"
+                      : val === "long"
+                      ? "Long Term"
+                      : "Freehold"}
+                  </label>
+                </div>
               ))}
             </div>
 
             {/* Property Types */}
             <div className="filter">
               <div className="filter-title">Property Types</div>
-              {["whole-properties", "shared-properties"].map((val) => (
+              {/* {["whole-properties", "shared-properties"].map((val) => (
                 <div className="filter-value-checkbox" key={val}>
                   <input
                     type="checkbox"
@@ -304,6 +410,19 @@ const AllProperties = ({ property }) => {
                     {val
                       .replace("-", " ")
                       .replace(/\b\w/g, (char) => char.toUpperCase())}
+                  </label>
+                </div>
+              ))} */}
+              {["whole", "shared"].map((val) => (
+                <div className="filter-value-checkbox" key={val}>
+                  <input
+                    type="checkbox"
+                    id={val}
+                    checked={filters.propertyType.includes(val)}
+                    onChange={handleCheckboxChange("propertyType", val)}
+                  />
+                  <label htmlFor={val}>
+                    {val === "whole" ? "Whole Property" : "Shared Property"}
                   </label>
                 </div>
               ))}
@@ -434,7 +553,7 @@ const AllProperties = ({ property }) => {
                   </div>
                 </div>
               </div> */}
-              {properties.map((prop) => (
+              {filteredProperties.map((prop) => (
                 <div
                   className="property-card"
                   key={prop.id}
