@@ -11,6 +11,7 @@ router.put('/change-password', verifyToken, authController.changePassword);
 router.post('/validate-password', verifyToken, authController.validateNewPassword);
 router.put('/upload-profile-pic', verifyToken, authController.uploadProfilePicBase64);
 router.get("/check-profile", verifyToken, authController.checkProfileCompletion);
+router.put('/update-profile', verifyToken, authController.updateProfile);
 
 
 module.exports = router;

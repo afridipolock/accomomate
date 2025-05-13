@@ -17,6 +17,269 @@ const ViewProfile = () => {
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
 
+  const [firstName, setFirstName] = useState("");
+  const [firstNameError, setFirstNameError] = useState("");
+  const [isFirstNameTouched, setIsFirstNameTouched] = useState(false);
+  const [isFirstNameValid, setIsFirstNameValid] = useState(false);
+
+  const [lastName, setLastName] = useState("");
+  const [lastNameError, setLastNameError] = useState("");
+  const [isLastNameTouched, setIsLastNameTouched] = useState(false);
+  const [isLastNameValid, setIsLastNameValid] = useState(false);
+
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [isEmailTouched, setIsEmailTouched] = useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(false);
+
+  const [dob, setDob] = useState("");
+  const [dobError, setDobError] = useState("");
+  const [isDobTouched, setIsDobTouched] = useState(false);
+  const [isDobValid, setIsDobValid] = useState(false);
+
+  const [phone, setPhone] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+  const [isPhoneTouched, setIsPhoneTouched] = useState(false);
+  const [isPhoneValid, setIsPhoneValid] = useState(false);
+
+  const [gender, setGender] = useState("");
+  const [genderError, setGenderError] = useState("");
+  const [isGenderTouched, setIsGenderTouched] = useState(false);
+  const [isGenderValid, setIsGenderValid] = useState(false);
+
+  const [nid, setNid] = useState("");
+  const [nidError, setNidError] = useState("");
+  const [isNidTouched, setIsNidTouched] = useState(false);
+  const [isNidValid, setIsNidValid] = useState(false);
+
+  const [address, setAddress] = useState("");
+  const [addressError, setAddressError] = useState("");
+  const [isAddressTouched, setIsAddressTouched] = useState(false);
+  const [isAddressValid, setIsAddressValid] = useState(false);
+
+  // Input Validation
+  const firstNameValidate = (value) => {
+    if (value.length === 0) {
+      setFirstNameError("First name cannot be empty");
+      setIsFirstNameValid(false);
+    } else {
+      setFirstNameError("");
+      setIsFirstNameValid(true);
+    }
+  };
+
+  const handleFirstNameChange = (e) => {
+    setFirstName(e.target.value);
+    if (isFirstNameTouched) {
+      firstNameValidate(e.target.value);
+    }
+  };
+
+  const handleFirstNameBlur = () => {
+    setIsFirstNameTouched(true);
+    firstNameValidate(firstName);
+  };
+
+  const lastNameValidate = (value) => {
+    if (value.length === 0) {
+      setLastNameError("Last name cannot be empty");
+      setIsLastNameValid(false);
+    } else {
+      setLastNameError("");
+      setIsLastNameValid(true);
+    }
+  };
+
+  const handleLastNameChange = (e) => {
+    setLastName(e.target.value);
+    if (isLastNameTouched) {
+      lastNameValidate(e.target.value);
+    }
+  };
+
+  const handleLastNameBlur = () => {
+    setIsLastNameTouched(true);
+    lastNameValidate(lastName);
+  };
+
+  const emailValidate = (value) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (value.length === 0) {
+      setEmailError("Email cannot be empty");
+      setIsEmailValid(false);
+    } else if (!emailRegex.test(value)) {
+      setEmailError("Please write correct email address");
+      setIsEmailValid(false);
+    } else {
+      setEmailError("");
+      setIsEmailValid(true);
+    }
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    if (isEmailTouched) {
+      emailValidate(e.target.value);
+    }
+  };
+
+  const handleEmailBlur = () => {
+    setIsEmailTouched(true);
+    emailValidate(email);
+  };
+
+  const today = new Date().toISOString().split("T")[0];
+
+  const dobValidate = (value) => {
+    const selectDate = new Date(value);
+    const currentDate = new Date();
+
+    if (value.length === 0) {
+      setDobError("Date of birth cannot be empty");
+      setIsDobValid(false);
+    } else if (selectDate > currentDate) {
+      setDobError("Date cannot be in the future");
+      setIsDobValid(false);
+    } else {
+      setDobError("");
+      setIsDobValid(true);
+    }
+  };
+
+  const handleDobChange = (e) => {
+    setDob(e.target.value);
+    if (isDobTouched) {
+      dobValidate(e.target.value);
+    }
+  };
+
+  const handleDobBlur = () => {
+    setIsDobTouched(true);
+    dobValidate(dob);
+  };
+
+  const phoneValidate = (value) => {
+    if (value.length === 0) {
+      setPhoneError("Phone Number cannot be empty");
+      setIsPhoneValid(false);
+    } else if (value.length < 11) {
+      setPhoneError("Phone number must be at least 11 digit");
+      setIsPhoneValid(false);
+    } else {
+      setPhoneError("");
+      setIsPhoneValid(true);
+    }
+  };
+
+  const handlePhoneChange = (e) => {
+    const onlyNumbers = e.target.value.replace(/\D/g, "");
+    setPhone(onlyNumbers);
+    if (isPhoneTouched) {
+      phoneValidate(onlyNumbers);
+    }
+  };
+
+  const handlePhoneBlur = () => {
+    setIsPhoneTouched(true);
+    phoneValidate(phone);
+  };
+  const nidValidate = (value) => {
+    if (value.length === 0) {
+      setNidError("NID cannot be empty");
+      setIsNidValid(false);
+    } else {
+      setNidError("");
+      setIsNidValid(true);
+    }
+  };
+
+  const handleNidChange = (e) => {
+    setNid(e.target.value);
+    if (isNidTouched) {
+      nidValidate(e.target.value);
+    }
+  };
+
+  const handleNidBlur = () => {
+    setIsNidTouched(true);
+    nidValidate(nid);
+  };
+  const addressValidate = (value) => {
+    if (value.length === 0) {
+      setAddressError("Address cannot be empty");
+      setIsAddressValid(false);
+    } else {
+      setAddressError("");
+      setIsAddressValid(true);
+    }
+  };
+
+  const handleAddressChange = (e) => {
+    setAddress(e.target.value);
+    if (isAddressTouched) {
+      addressValidate(e.target.value);
+    }
+  };
+
+  const handleAddressBlur = () => {
+    setIsAddressTouched(true);
+    addressValidate(address);
+  };
+
+  const genderValidate = (value) => {
+    if (!value) {
+      setGenderError("Gender cannot be empty");
+      setIsGenderValid(false);
+    } else {
+      setGenderError("");
+      setIsGenderValid(true);
+    }
+  };
+
+  useEffect(() => {
+    if (profile) {
+      setFirstName(profile.firstname || "");
+      setLastName(profile.lastname || "");
+      setEmail(profile.email || "");
+      setPhone(profile.phone || "");
+      setDob(profile.dob || "");
+      setGender(profile.gender || "");
+      setNid(profile.nid || "");
+      setAddress(profile.address || "");
+    }
+  }, [profile]);
+
+  const handleSaveProfile = async () => {
+    try {
+      const token = localStorage.getItem("authToken");
+
+      const res = await axios.put(
+        "http://localhost:5000/api/auth/update-profile",
+        {
+          firstname: firstName,
+          lastname: lastName,
+          email,
+          dob,
+          phone,
+          gender,
+          nid,
+          address,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      alert(res.data.message);
+      setIsEditing(false);
+    } catch (err) {
+      alert(err.response?.data?.message || "Failed to update profile");
+    }
+  };
+
+  // API work
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -451,9 +714,13 @@ const ViewProfile = () => {
                   type="text"
                   name="firstname"
                   id="firstname"
-                  value={profile?.firstname || "Need to fill this information"}
+                  value={firstName}
                   disabled={!isEditing}
+                  onChange={handleFirstNameChange}
+                  onBlur={handleFirstNameBlur}
+                  placeholder="Need to fill this information"
                 />
+                <span className="error">{firstNameError}</span>
               </div>
               <div className="input-info">
                 <label htmlFor="lastname">Last Name</label>
@@ -461,11 +728,121 @@ const ViewProfile = () => {
                   type="text"
                   name="lastname"
                   id="lastname"
-                  value={profile?.lastname || "Need to fill this information"}
+                  value={lastName}
                   disabled={!isEditing}
+                  onChange={handleLastNameChange}
+                  onBlur={handleLastNameBlur}
+                  placeholder="Need to fill this information"
                 />
+                <span className="error">{lastNameError}</span>
               </div>
             </div>
+            <div className="information-pair">
+              <div className="input-info">
+                <label htmlFor="dob">Date of birth</label>
+                <input
+                  type="date"
+                  name="dob"
+                  id="dob"
+                  value={dob}
+                  disabled={!isEditing}
+                  onChange={handleDobChange}
+                  onBlur={handleDobBlur}
+                  placeholder="Need to fill this information"
+                />
+                <span className="error">{dobError}</span>
+              </div>
+              <div className="input-info">
+                <label htmlFor="gender">Gender</label>
+                <select
+                  name="gender"
+                  id="gender"
+                  disabled={!isEditing}
+                  value={gender}
+                  onChange={(e) => {
+                    setGender(e.target.value);
+                    if (isGenderTouched) {
+                      genderValidate(e.target.value);
+                    }
+                  }}
+                  onBlur={() => {
+                    setIsGenderTouched(true);
+                    genderValidate(gender);
+                  }}
+                >
+                  <option value="">-- Select Gender --</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+                <span className="error">{genderError}</span>
+              </div>
+            </div>
+            <div className="information-pair">
+              <div className="input-info">
+                <label htmlFor="phone">Phone</label>
+                <input
+                  type="phone"
+                  name="phone"
+                  id="phone"
+                  value={phone}
+                  disabled={!isEditing}
+                  onChange={handlePhoneChange}
+                  onBlur={handlePhoneBlur}
+                  placeholder="Need to fill this information"
+                />
+                <span className="error">{phoneError}</span>
+              </div>
+              <div className="input-info">
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  value={email}
+                  disabled={!isEditing}
+                  onChange={handleEmailChange}
+                  onBlur={handleEmailBlur}
+                  placeholder="Need to fill this information"
+                />
+                <span className="error">{emailError}</span>
+              </div>
+            </div>
+            <div className="information-pair">
+              <div className="input-info">
+                <label htmlFor="nid">Nid Number</label>
+                <input
+                  type="nid"
+                  name="nid"
+                  id="nid"
+                  value={nid}
+                  disabled={!isEditing}
+                  onChange={handleNidChange}
+                  onBlur={handleNidBlur}
+                  placeholder="Need to fill this information"
+                />
+                <span className="error">{nidError}</span>
+              </div>
+              <div className="input-info">
+                <label htmlFor="address">Full Address</label>
+                <input
+                  type="address"
+                  name="address"
+                  id="address"
+                  value={address}
+                  disabled={!isEditing}
+                  onChange={handleAddressChange}
+                  onBlur={handleAddressBlur}
+                  placeholder="Need to fill this information"
+                />
+                <span className="error">{addressError}</span>
+              </div>
+            </div>
+            {isEditing && (
+              <div className="button">
+                <button onClick={handleSaveProfile}>Save Changes</button>
+              </div>
+            )}
           </div>
         </div>
       </div>

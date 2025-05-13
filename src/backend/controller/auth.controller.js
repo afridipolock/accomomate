@@ -213,4 +213,31 @@ exports.checkProfileCompletion = async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 };
+exports.updateProfile = async (req, res) => {
+    const { firstname, lastname, email, dob, phone, gender, nid, address } = req.body;
+    const userId = req.user.id;
+
+    try {
+        await db.query(
+            `UPDATE users SET 
+          firstname = ?, 
+          lastname = ?, 
+          email = ?, 
+          dob = ?, 
+          phone = ?, 
+          gender = ?, 
+          nid = ?, 
+          address = ?, 
+          last_update = CURRENT_TIMESTAMP 
+        WHERE id = ?`,
+            [firstname, lastname, email, dob, phone, gender, nid, address, userId]
+        );
+
+        res.json({ message: "Profile updated successfully" });
+    } catch (err) {
+        console.error("Profile update error:", err);
+        res.status(500).json({ message: "Failed to update profile" });
+    }
+};
+
 
