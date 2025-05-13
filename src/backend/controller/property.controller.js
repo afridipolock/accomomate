@@ -61,6 +61,23 @@ exports.addProperty = async (req, res) => {
     }
 };
 
-exports.getProperties = async (req, res) => {
 
-}
+exports.getProperties = async (req, res) => {
+    try {
+        const [rows] = await db.query(`
+            SELECT 
+              p.*, 
+              u.firstname, u.lastname, u.phone, u.email,
+              (SELECT image FROM properties_image WHERE propid = p.id AND image IS NOT NULL LIMIT 1) as mainImage
+            FROM properties p
+            JOIN users u ON p.ownerid = u.id
+            ORDER BY p.created_at DESC
+          `);
+
+
+        res.status(200).json(rows);
+    } catch (err) {
+        console.error("Get properties error:", err);
+        res.status(500).json({ message: "Failed to fetch properties." });
+    }
+};

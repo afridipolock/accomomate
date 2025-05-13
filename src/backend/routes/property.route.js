@@ -4,6 +4,7 @@ const propertyController = require('../controller/property.controller')
 const { verifyToken } = require('../middleware/auth.middleware');
 
 router.post("/add-property", verifyToken, propertyController.addProperty);
+router.get("/get-properties", propertyController.getProperties);
 
 
 module.exports = router;

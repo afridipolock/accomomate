@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const AllProperties = ({ property }) => {
   const initialFilters = {
@@ -66,6 +67,22 @@ const AllProperties = ({ property }) => {
   const handlePropertyCardClick = () => {
     navigate(`/property?id=${property.id}`);
   };
+  // Get property
+  const [properties, setProperties] = useState([]);
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:5000/api/property/get-properties"
+        );
+        setProperties(res.data);
+      } catch (err) {
+        console.error("Failed to fetch properties:", err);
+      }
+    };
+
+    fetchProperties();
+  }, []);
 
   return (
     <div className="desktop-window">
@@ -365,7 +382,7 @@ const AllProperties = ({ property }) => {
               </div>
             </div>
             <div className="properties-bottom">
-              <div className="property-card" onClick={handlePropertyCardClick}>
+              {/* <div className="property-card" onClick={handlePropertyCardClick}>
                 <div className="property-card-left">
                   <div className="card-left-img">img</div>
                   <div className="card-left-price">৳ 10,000</div>
@@ -416,7 +433,73 @@ const AllProperties = ({ property }) => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
+              {properties.map((prop) => (
+                <div
+                  className="property-card"
+                  key={prop.id}
+                  onClick={() => navigate(`/property?id=${prop.id}`)}
+                >
+                  <div className="property-card-left">
+                    <div className="card-left-img">
+                      {prop.mainImage ? (
+                        <img src={prop.mainImage} alt="main" />
+                      ) : (
+                        "No Image"
+                      )}
+                    </div>
+                    <div className="card-left-price">
+                      ৳ {Number(prop.price).toLocaleString()}
+                    </div>
+                  </div>
+                  <div className="property-card-right">
+                    <div className="card-right-title">{prop.adtitle}</div>
+                    <div className="card-right-info">
+                      <div className="card-right-type">{prop.types}</div>
+                      <div className="card-right-beds">
+                        <i className="fa-solid fa-bed"></i> {prop.beds}
+                      </div>
+                      <div className="card-right-baths">
+                        <i className="fa-solid fa-bath"></i> {prop.bath}
+                      </div>
+                    </div>
+                    <div className="card-right-description">
+                      {prop.shortdescription.length > 300
+                        ? prop.shortdescription.slice(0, 300) + "..."
+                        : prop.shortdescription}
+                    </div>
+                    <div className="card-right-address">{prop.address}</div>
+                    <div className="card-right-contact">
+                      <div className="card-right-contact-owner-info">
+                        <div className="card-right-contact-owner-name">
+                          {prop.firstname} {prop.lastname}
+                        </div>
+                        <div className="card-right-contact-number">
+                          {prop.phone}
+                        </div>
+                      </div>
+                      <div className="card-right-contact-mail">
+                        {prop.email}
+                      </div>
+                      <div
+                        className="card-right-contact-save"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleSave();
+                        }}
+                      >
+                        <i
+                          className={
+                            isSaved
+                              ? "fa-solid fa-heart saved-heart"
+                              : "fa-regular fa-heart"
+                          }
+                        ></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
           <div className="right-ad">bottom right</div>
