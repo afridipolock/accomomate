@@ -249,6 +249,35 @@ const ViewProfile = () => {
     }
   }, [profile]);
 
+  // const handleSaveProfile = async () => {
+  //   try {
+  //     const token = localStorage.getItem("authToken");
+
+  //     const res = await axios.put(
+  //       "http://localhost:5000/api/auth/update-profile",
+  //       {
+  //         firstname: firstName,
+  //         lastname: lastName,
+  //         email,
+  //         dob,
+  //         phone,
+  //         gender,
+  //         nid,
+  //         address,
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
+
+  //     alert(res.data.message);
+  //     setIsEditing(false);
+  //   } catch (err) {
+  //     alert(err.response?.data?.message || "Failed to update profile");
+  //   }
+  // };
   const handleSaveProfile = async () => {
     try {
       const token = localStorage.getItem("authToken");
@@ -272,7 +301,23 @@ const ViewProfile = () => {
         }
       );
 
-      alert(res.data.message);
+      const profileRes = await axios.get(
+        "http://localhost:5000/api/auth/get-profile",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setProfile(profileRes.data);
+
+      const statusCheck = await axios.get(
+        "http://localhost:5000/api/auth/check-profile",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setCompletion(statusCheck.data.completion);
+
+      alert("Profile updated successfully!");
       setIsEditing(false);
     } catch (err) {
       alert(err.response?.data?.message || "Failed to update profile");
@@ -698,7 +743,7 @@ const ViewProfile = () => {
             <span>
               {profile ? getStatusUpdate(profile.status) : "Loading status..."}
             </span>
-            {completion}% complete {completion === 100 && "(Verified)"}
+            {/* {completion}% complete {completion === 100} */}
           </div>
           <div className="title">
             <span>Profile Information</span>
@@ -745,6 +790,7 @@ const ViewProfile = () => {
                   name="dob"
                   id="dob"
                   value={dob}
+                  max={today}
                   disabled={!isEditing}
                   onChange={handleDobChange}
                   onBlur={handleDobBlur}
