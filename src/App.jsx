@@ -22,6 +22,9 @@ import ViewProfile from "./frontend/pages/webpage/viewProfile/ViewProfile";
 import ManageProperties from "./frontend/pages/webpage/manageProperties/ManageProperties";
 // Import dashboard pages
 
+//import terms and conditions
+import TermsCondition from "./frontend/components/termsCondition/TermsConsition";
+
 // New page always scroll on top
 const NewPageScrollTop = () => {
   const { pathname } = useLocation();
@@ -180,6 +183,15 @@ const Main = () => {
             </WebPageLayout>
           }
         />
+        <Route
+          path="/terms-condition"
+          element={
+            <WebPageLayout>
+              <TermsCondition />
+            </WebPageLayout>
+          }
+        />
+
       </Routes>
     </Router>
   );

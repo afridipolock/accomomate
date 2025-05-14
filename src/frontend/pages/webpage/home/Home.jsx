@@ -48,7 +48,7 @@ const Home = () => {
           </div>
           <div className="right">
             <button type="button" onClick={() => navigate("/registration")}>
-              Sign in or Crate an account
+              Sign in or Create an account
             </button>
           </div>
         </div>
