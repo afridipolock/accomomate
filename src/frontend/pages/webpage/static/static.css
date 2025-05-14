@@ -1,0 +1,35 @@
+/* static.css */
+.static-page {
+    padding: 40px;
+    max-width: 800px;
+    margin: auto;
+    background-color: #f9f9f9;
+    font-family: 'Segoe UI', sans-serif;
+    line-height: 1.6;
+}
+
+.static-page h1,
+h2 {
+    color: #2c3e50;
+}
+
+.static-page .highlight {
+    color: #3498db;
+    font-weight: bold;
+}
+
+.static-page ul {
+    padding-left: 20px;
+}
+
+.static-page .team {
+    margin-top: 30px;
+}
+
+.static-page .member {
+    margin-bottom: 20px;
+    background: #fff;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}

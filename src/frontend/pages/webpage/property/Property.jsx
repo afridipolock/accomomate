@@ -49,7 +49,7 @@ const Property = () => {
               ))}
             </Slider>
           </div>
-          <div className="property-info"></div>
+          <div className="property-info">{property.price}</div>
         </div>
       </div>
     </div>

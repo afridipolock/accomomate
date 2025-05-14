@@ -20,6 +20,12 @@ import FindLandlord from "./frontend/pages/webpage/findLandlord/FindLandlord";
 import Property from "./frontend/pages/webpage/property/Property";
 import ViewProfile from "./frontend/pages/webpage/viewProfile/ViewProfile";
 import ManageProperties from "./frontend/pages/webpage/manageProperties/ManageProperties";
+import AboutUs from "./frontend/pages/webpage/static/AboutUs";
+import PrivacyPolicy from "./frontend/pages/webpage/static/PrivacyPolicy";
+import ContactUs from "./frontend/pages/webpage/static/ContactUs";
+import MovingStories from "./frontend/pages/webpage/static/MovingStories";
+import Blog from "./frontend/pages/webpage/static/Blog";
+
 // Import dashboard pages
 
 // New page always scroll on top
@@ -172,6 +178,48 @@ const Main = () => {
             </WebPageLayout>
           }
         />
+        <Route
+          path="/about-us"
+          element={
+            <WebPageLayout>
+              <AboutUs />
+            </WebPageLayout>
+          }
+        />
+        <Route
+          path="/privacy-policy"
+          element={
+            <WebPageLayout>
+              <PrivacyPolicy />
+            </WebPageLayout>
+          }
+        />
+        <Route
+          path="/contact-us"
+          element={
+            <WebPageLayout>
+              <ContactUs />
+            </WebPageLayout>
+          }
+        />
+        <Route
+          path="/moving-stories"
+          element={
+            <WebPageLayout>
+              <MovingStories />
+            </WebPageLayout>
+          }
+        />
+
+        <Route
+          path="/blog"
+          element={
+            <WebPageLayout>
+              <Blog />
+            </WebPageLayout>
+          }
+        />
+
         <Route
           path="/manage-properties"
           element={
