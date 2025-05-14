@@ -25,6 +25,8 @@ import TermsCondition from "./frontend/components/termsCondition/TermsConsition"
 import AboutUs from "./frontend/components/aboutUs/AboutUs";
 import ContactUs from "./frontend/components/contactUs/ContactUs";
 import PrivacyPolicy from "./frontend/components/privacyPolicy/PrivacyPolicy";
+import MovingStories from "./frontend/components/movingStories/MovingStories";
+import Blog from "./frontend/components/blog/Blog";
 
 // New page always scroll on top
 const NewPageScrollTop = () => {
@@ -97,6 +99,9 @@ const allTitle = {
   "/about-us": "About Us",
   "/contact-us": "Contact Us",
   "/privacy-policy": "Privacy Policy",
+  "/moving-stories": "Moving Stories",
+  "/blog": "Blog"
+  
 };
 
 function TitleUpdater() {
@@ -219,6 +224,23 @@ const Main = () => {
             </WebPageLayout>
           }
         />
+        <Route
+          path="/moving-stories"
+          element={
+            <WebPageLayout>
+              <MovingStories />
+            </WebPageLayout>
+          }
+        />
+        <Route
+          path="blog"
+          element={
+            <WebPageLayout>
+              <Blog />
+            </WebPageLayout>
+          }
+        />
+
 
       </Routes>
     </Router>
