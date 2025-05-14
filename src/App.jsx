@@ -21,9 +21,8 @@ import Property from "./frontend/pages/webpage/property/Property";
 import ViewProfile from "./frontend/pages/webpage/viewProfile/ViewProfile";
 import ManageProperties from "./frontend/pages/webpage/manageProperties/ManageProperties";
 // Import dashboard pages
-
-//import terms and conditions
 import TermsCondition from "./frontend/components/termsCondition/TermsConsition";
+import AboutUs from "./frontend/components/aboutUs/AboutUs";
 
 // New page always scroll on top
 const NewPageScrollTop = () => {
@@ -93,6 +92,7 @@ const allTitle = {
   "/available-properties": "Available Properties",
   "/manage-properties": "Manage Properties",
   "/view-profile": "View Profile",
+  "/about-us": "About Us"
 };
 
 function TitleUpdater() {
@@ -188,6 +188,14 @@ const Main = () => {
           element={
             <WebPageLayout>
               <TermsCondition />
+            </WebPageLayout>
+          }
+        />
+        <Route
+          path="/about-us"
+          element={
+            <WebPageLayout>
+              <AboutUs />
             </WebPageLayout>
           }
         />
