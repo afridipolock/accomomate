@@ -25,9 +25,7 @@ import PrivacyPolicy from "./frontend/pages/webpage/static/PrivacyPolicy";
 import ContactUs from "./frontend/pages/webpage/static/ContactUs";
 import MovingStories from "./frontend/pages/webpage/static/MovingStories";
 import Blog from "./frontend/pages/webpage/static/Blog";
-
-// Import dashboard pages
-
+import TermsCondition from "./frontend/components/termsCondition/TermsCondition";
 // New page always scroll on top
 const NewPageScrollTop = () => {
   const { pathname } = useLocation();
