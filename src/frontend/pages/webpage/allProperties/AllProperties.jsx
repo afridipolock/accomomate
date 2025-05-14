@@ -17,7 +17,6 @@ const AllProperties = ({ property }) => {
     propertyType: [],
     features: [],
   };
-  const description = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident cum voluptatibus expedita impedit odio dolorum voluptas. Magni dicta explicabo distinctio non! Quidem esse, accusamus laboriosam voluptatem quas suscipit. Esse, odit.`;
 
   const [filters, setFilters] = useState(initialFilters);
 
@@ -165,12 +164,24 @@ const AllProperties = ({ property }) => {
       );
     }
 
+    localStorage.setItem("propertyFilters", JSON.stringify(filters));
     setFilteredProperties(filtered);
   };
+  useEffect(() => {
+    const savedFilters = localStorage.getItem("propertyFilters");
+    if (savedFilters) {
+      const parsedFilters = JSON.parse(savedFilters);
+      // Only apply if current filters match the saved ones (i.e., not a manual change)
+      if (JSON.stringify(filters) === JSON.stringify(parsedFilters)) {
+        handleApply();
+      }
+    }
+  }, [filters]);
 
   const handleReset = () => {
     setFilters(initialFilters);
     setFilteredProperties(allProperties);
+    localStorage.removeItem("propertyFilters");
   };
 
   return (
@@ -361,21 +372,6 @@ const AllProperties = ({ property }) => {
             {/* Tenure Types */}
             <div className="filter">
               <div className="filter-title">Tenure Types</div>
-              {/* {["short-term", "long-term", "freehold"].map((val) => (
-                <div className="filter-value-checkbox" key={val}>
-                  <input
-                    type="checkbox"
-                    id={val}
-                    checked={filters.tenure.includes(val)}
-                    onChange={handleCheckboxChange("tenure", val)}
-                  />
-                  <label htmlFor={val}>
-                    {val
-                      .replace("-", " ")
-                      .replace(/\b\w/g, (char) => char.toUpperCase())}
-                  </label>
-                </div>
-              ))} */}
               {["short", "long", "freehold"].map((val) => (
                 <div className="filter-value-checkbox" key={val}>
                   <input
@@ -398,21 +394,6 @@ const AllProperties = ({ property }) => {
             {/* Property Types */}
             <div className="filter">
               <div className="filter-title">Property Types</div>
-              {/* {["whole-properties", "shared-properties"].map((val) => (
-                <div className="filter-value-checkbox" key={val}>
-                  <input
-                    type="checkbox"
-                    id={val}
-                    checked={filters.propertyType.includes(val)}
-                    onChange={handleCheckboxChange("propertyType", val)}
-                  />
-                  <label htmlFor={val}>
-                    {val
-                      .replace("-", " ")
-                      .replace(/\b\w/g, (char) => char.toUpperCase())}
-                  </label>
-                </div>
-              ))} */}
               {["whole", "shared"].map((val) => (
                 <div className="filter-value-checkbox" key={val}>
                   <input

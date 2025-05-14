@@ -1,4 +1,47 @@
 .desktop-property {
     width: 100%;
     height: 100%;
+    padding: 20px 50px;
+
+
+    .go-back {
+        width: 100%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #696969;
+        font-weight: 500;
+        transition: 0.3s ease-in-out all;
+        cursor: pointer;
+        margin-bottom: 20px;
+
+        &:hover {
+            color: black;
+        }
+    }
+
+    .property-details-page {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        /* justify-content: center; */
+
+        .property-image {
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            .img-preview {
+                img {
+                    width: 100%;
+                    height: 450px;
+                    object-fit: cover;
+                }
+            }
+        }
+    }
 }
